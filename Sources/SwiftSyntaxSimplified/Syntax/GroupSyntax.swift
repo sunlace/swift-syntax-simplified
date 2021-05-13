@@ -19,7 +19,7 @@ extension SyntaxFactory.Simplified {
 
     public static func makeFunctionParameterTypeGroup(
         type: TypeSyntax,
-        ellipsis: TokenSyntax?
+        ellipsis: TokenSyntax? = nil
     ) -> FunctionParameterTypeGroupSyntax {
         FunctionParameterTypeGroupSyntax(
             type: type,
