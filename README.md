@@ -4,17 +4,27 @@ SwiftSyntax without the boilerplate.
 
 ## Usage
 
+### Choose a version
+
+This library uses a compound version number, with two parts separated by a dash `-`.
+- The first part is a standard three-part semantic version number `X.Y.Z`.
+- The second part is the version of SwiftSyntax that it is compatible with.
+
+For example: `1.0.1-0.50300.0` is the `1.0.1` version compatible with the `0.503000.0` version of SwiftSyntax.
+
 ### Add as a Swift Package Manager dependency
 
-In your `Package.swift`:
+Update your `Package.swift`, replacing `<version number>` with the version you choose above.
+
 ```swift
 Package(
     ...,
     dependencies: [
         ...,
         .package(
+            name: "SwiftSyntaxSimplified",
             url: "https://github.com/Sunlace/swift-syntax-simplified.git",
-            .exact("1.0.0-0.50300.0")
+            .exact("<version number>")
         ),
     ],
     targets: [
@@ -23,12 +33,13 @@ Package(
             ...,
             dependencies: [
                 ...,
-                .product(name: "SwiftSyntaxSimplified", package: "SwiftSyntaxSimplified")
+                .product(name: "SwiftSyntaxSimplified", package: "SwiftSyntaxSimplified"),
             ]
         ),
     ]
 )
 ```
+
 ### Import in your code
 
 This library does not replace all the functionality of `SwiftSyntax`, so do not remove your existing imports of `SwiftSyntax`.
@@ -46,16 +57,16 @@ Call the same methods that you would normally call, but with less boilerplate.
 
 ```swift
 SyntaxFactory.Simplified.makeFunctionCallExpr(
-calledExpression: <expression>,
-arguments: [
-SyntaxFactory.Simplified.makeTupleExprElement(
-expression:<expression>
-),
-SyntaxFactory.Simplified.makeTupleExprElement(
-label: <token>,
-expression: <expression>
-),
-]
+    calledExpression: <expression>,
+    arguments: [
+        SyntaxFactory.Simplified.makeTupleExprElement(
+            expression:<expression>
+        ),
+        SyntaxFactory.Simplified.makeTupleExprElement(
+            label: <token>,
+            expression: <expression>
+        ),
+    ]
 )
 ```
 
@@ -63,25 +74,25 @@ expression: <expression>
 
 ```swift
 SyntaxFactory.makeFunctionCallExpr(
-calledExpression: <expression>,
-leftParen: SyntaxFactory.makeLeftParenToken(),
-argumentList: SyntaxFactory.makeTupleExprElementList([
-SyntaxFactory.makeTupleExprElement(
-label: nil,
-colon: nil,
-expression: <expression>,
-trailingComma: SyntaxFactory.makeCommaToken()
-),
-SyntaxFactory.makeTupleExprElement(
-label: <token>,
-colon: SyntaxFactory.makeColonToken(),
-expression: <expression>,
-trailingComma: nil
-)
-]),
-rightParen: SyntaxFactory.makeRightParenToken(),
-trailingClosure: nil,
-additionalTrailingClosures: nil
+    calledExpression: <expression>,
+    leftParen: SyntaxFactory.makeLeftParenToken(),
+    argumentList: SyntaxFactory.makeTupleExprElementList([
+        SyntaxFactory.makeTupleExprElement(
+            label: nil,
+            colon: nil,
+            expression: <expression>,
+            trailingComma: SyntaxFactory.makeCommaToken()
+        ),
+        SyntaxFactory.makeTupleExprElement(
+            label: <token>,
+            colon: SyntaxFactory.makeColonToken(),
+            expression: <expression>,
+            trailingComma: nil
+        )
+    ]),
+    rightParen: SyntaxFactory.makeRightParenToken(),
+    trailingClosure: nil,
+    additionalTrailingClosures: nil
 )
 ```
 
