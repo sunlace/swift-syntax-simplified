@@ -26,12 +26,34 @@ extension SyntaxFactory.Simplified {
     }
 
     public static func makeCodeBlock(
-        statements: [CodeBlockItemSyntax]
+        statements: [CodeBlockItemSyntax] = []
     ) -> CodeBlockSyntax {
         SyntaxFactory.makeCodeBlock(
             leftBrace: SyntaxFactory.makeLeftBraceToken(),
             statements: SyntaxFactory.makeCodeBlockItemList(statements),
             rightBrace: SyntaxFactory.makeRightBraceToken()
+        )
+    }
+
+    public static func makeAccessorBlock(
+        leftBrace: TokenSyntax,
+        accessors: [AccessorDeclSyntax],
+        rightBrace: TokenSyntax
+    ) -> AccessorBlockSyntax {
+        SyntaxFactory.makeAccessorBlock(
+            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            accessors: SyntaxFactory.makeAccessorList(accessors),
+            rightBrace: SyntaxFactory.makeRightBraceToken()
+        )
+    }
+
+    public static func makeAccessorParameter(
+        name: TokenSyntax
+    ) -> AccessorParameterSyntax {
+        SyntaxFactory.makeAccessorParameter(
+            leftParen: SyntaxFactory.makeLeftParenToken(),
+            name: name,
+            rightParen: SyntaxFactory.makeRightParenToken()
         )
     }
 }

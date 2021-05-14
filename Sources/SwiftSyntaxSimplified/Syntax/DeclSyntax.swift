@@ -68,4 +68,20 @@ extension SyntaxFactory.Simplified {
             body: bodyStatements.map { makeCodeBlock(statements: $0) }
         )
     }
+
+    public static func makeAccessorDecl(
+        attributes: [Syntax] = [],
+        modifier: DeclModifierSyntax? = nil,
+        accessorKind: TokenSyntax,
+        parameterName: TokenSyntax? = nil,
+        bodyStatements: [CodeBlockItemSyntax]?
+    ) -> AccessorDeclSyntax {
+        SyntaxFactory.makeAccessorDecl(
+            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            modifier: modifier,
+            accessorKind: accessorKind,
+            parameter: parameterName.map { makeAccessorParameter(name: $0) },
+            body: bodyStatements.map { makeCodeBlock(statements: $0) }
+        )
+    }
 }
