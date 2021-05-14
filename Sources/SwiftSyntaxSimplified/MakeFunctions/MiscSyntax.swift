@@ -1,8 +1,8 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
     
-    public static func makeDeclModifier(
+    static func makeDeclModifier(
         name: TokenSyntax,
         detail: TokenSyntax? = nil
     ) -> DeclModifierSyntax {
@@ -14,7 +14,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeMultipleTrailingClosureElement(
+    static func makeMultipleTrailingClosureElement(
         label: TokenSyntax,
         closure: ClosureExprSyntax
     ) -> MultipleTrailingClosureElementSyntax {
@@ -25,27 +25,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeCodeBlock(
-        statements: [CodeBlockItemSyntax] = []
-    ) -> CodeBlockSyntax {
-        SyntaxFactory.makeCodeBlock(
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
-            statements: SyntaxFactory.makeCodeBlockItemList(statements),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
-        )
-    }
-
-    public static func makeAccessorBlock(
-        accessors: [AccessorDeclSyntax]
-    ) -> AccessorBlockSyntax {
-        SyntaxFactory.makeAccessorBlock(
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
-            accessors: SyntaxFactory.makeAccessorList(accessors),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
-        )
-    }
-
-    public static func makeAccessorParameter(
+    static func makeAccessorParameter(
         name: TokenSyntax
     ) -> AccessorParameterSyntax {
         SyntaxFactory.makeAccessorParameter(

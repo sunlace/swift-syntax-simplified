@@ -1,31 +1,27 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public struct TupleExprElementSyntax {
+    let label: TokenSyntax?,
+        expression: ExprSyntax
+}
 
-    // MARK: Models
+public struct FunctionParameterSyntax {
+    let attributes: [Syntax],
+        firstName: TokenSyntax?,
+        secondName: TokenSyntax?,
+        type: FunctionParameterTypeGroupSyntax?,
+        defaultArgument: InitializerClauseSyntax?
+}
 
-    public struct TupleExprElementSyntax {
-        let label: TokenSyntax?,
-            expression: ExprSyntax
-    }
+public struct GenericParameterSyntax {
+    let attributes: [Syntax],
+        name: TokenSyntax,
+        inheritedType: TypeSyntax?
+}
 
-    public struct FunctionParameterSyntax {
-        let attributes: [Syntax],
-            firstName: TokenSyntax?,
-            secondName: TokenSyntax?,
-            type: FunctionParameterTypeGroupSyntax?,
-            defaultArgument: InitializerClauseSyntax?
-    }
+public extension SyntaxFactory.Simplified {
 
-    public struct GenericParameterSyntax {
-        let attributes: [Syntax],
-            name: TokenSyntax,
-            inheritedType: TypeSyntax?
-    }
-
-    // MARK: Functions
-
-    public static func makeTupleExprElement(
+    static func makeTupleExprElement(
         label: TokenSyntax? = nil,
         expression: ExprSyntax
     ) -> TupleExprElementSyntax {
@@ -35,7 +31,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeGenericParameter(
+    static func makeGenericParameter(
         attributes: [Syntax] = [],
         name: TokenSyntax,
         inheritedType: TypeSyntax? = nil
@@ -47,7 +43,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeFunctionParameter(
+    static func makeFunctionParameter(
         attributes: [Syntax] = [],
         firstName: TokenSyntax? = nil, // TODO: One of these must be required, right?
         secondName: TokenSyntax? = nil,

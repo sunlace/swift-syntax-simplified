@@ -1,0 +1,24 @@
+import SwiftSyntax
+
+public extension SyntaxFactory.Simplified {
+
+    static func makeCodeBlock(
+        statements: [CodeBlockItemSyntax] = []
+    ) -> CodeBlockSyntax {
+        SyntaxFactory.makeCodeBlock(
+            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            statements: SyntaxFactory.makeCodeBlockItemList(statements),
+            rightBrace: SyntaxFactory.makeRightBraceToken()
+        )
+    }
+
+    static func makeAccessorBlock(
+        accessors: [AccessorDeclSyntax]
+    ) -> AccessorBlockSyntax {
+        SyntaxFactory.makeAccessorBlock(
+            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            accessors: SyntaxFactory.makeAccessorList(accessors),
+            rightBrace: SyntaxFactory.makeRightBraceToken()
+        )
+    }
+}

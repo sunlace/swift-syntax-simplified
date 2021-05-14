@@ -1,19 +1,19 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
-    public static func makeGenericRequirementList(
-        _ bodies: [Syntax]
+    static func makeGenericRequirementList(
+        _ bodies: [RequirementSyntaxProtocol]
     ) -> GenericRequirementListSyntax {
         SyntaxFactory.makeGenericRequirementList(bodies.mapWithIsLast {
             SyntaxFactory.makeGenericRequirement(
-                body: $0.element,
+                body: $0.element.typeErased,
                 trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
             )
         })
     }
 
-    public static func makeTupleExprElementList(
+    static func makeTupleExprElementList(
         _ elements: [TupleExprElementSyntax] = []
     ) -> TupleExprElementListSyntax {
         SyntaxFactory.makeTupleExprElementList(elements.mapWithIsLast {
@@ -26,7 +26,7 @@ extension SyntaxFactory.Simplified {
         })
     }
 
-    public static func makeArrayElementList(
+    static func makeArrayElementList(
         _ expressions: [ExprSyntax] = [],
         includeTrailingComma: Bool = false
     ) -> ArrayElementListSyntax {
@@ -40,7 +40,7 @@ extension SyntaxFactory.Simplified {
         })
     }
 
-    public static func makeGenericArgumentList(
+    static func makeGenericArgumentList(
         _ argumentTypes: [TypeSyntax]
     ) -> GenericArgumentListSyntax {
         SyntaxFactory.makeGenericArgumentList(argumentTypes.mapWithIsLast {
@@ -51,7 +51,7 @@ extension SyntaxFactory.Simplified {
         })
     }
 
-    public static func makeGenericParameterList(
+    static func makeGenericParameterList(
         _ elements: [GenericParameterSyntax]
     ) -> GenericParameterListSyntax {
         SyntaxFactory.makeGenericParameterList(elements.mapWithIsLast {
@@ -65,7 +65,7 @@ extension SyntaxFactory.Simplified {
         })
     }
 
-    public static func makeFunctionParameterList(
+    static func makeFunctionParameterList(
         _ elements: [FunctionParameterSyntax] = []
     ) -> FunctionParameterListSyntax {
         SyntaxFactory.makeFunctionParameterList(elements.mapWithIsLast {
@@ -83,7 +83,7 @@ extension SyntaxFactory.Simplified {
 
     }
 
-    public static func makeInheritedTypeList(
+    static func makeInheritedTypeList(
         _ typeNames: [TypeSyntax]) -> InheritedTypeListSyntax {
         SyntaxFactory.makeInheritedTypeList(typeNames.mapWithIsLast {
             SyntaxFactory.makeInheritedType(
@@ -93,7 +93,7 @@ extension SyntaxFactory.Simplified {
         })
     }
 
-    public static func makeAccessPath(
+    static func makeAccessPath(
         _ componentNames: [TokenSyntax]
     ) -> AccessPathSyntax {
         SyntaxFactory.makeAccessPath(componentNames.mapWithIsLast {

@@ -1,23 +1,19 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public struct TrailingClosureGroupSyntax {
+    let trailingClosure: ClosureExprSyntax,
+        additionalTrailingClosures: [MultipleTrailingClosureElementSyntax],
+        includeEmptyArgumentListParentheses: Bool
+}
 
-    // MARK: Models
+public struct FunctionParameterTypeGroupSyntax {
+    let type: TypeSyntax,
+        ellipsis: TokenSyntax?
+}
 
-    public struct TrailingClosureGroupSyntax {
-        let trailingClosure: ClosureExprSyntax,
-            additionalTrailingClosures: [MultipleTrailingClosureElementSyntax],
-            includeEmptyArgumentListParentheses: Bool
-    }
+public extension SyntaxFactory.Simplified {
 
-    public struct FunctionParameterTypeGroupSyntax {
-        let type: TypeSyntax,
-            ellipsis: TokenSyntax?
-    }
-
-    // MARK: Make Functions
-
-    public static func makeFunctionParameterTypeGroup(
+    static func makeFunctionParameterTypeGroup(
         type: TypeSyntax,
         ellipsis: TokenSyntax? = nil
     ) -> FunctionParameterTypeGroupSyntax {
@@ -27,7 +23,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeTrailingClosureGroup(
+    static func makeTrailingClosureGroup(
         trailingClosure: ClosureExprSyntax,
         additionalTrailingClosures: [MultipleTrailingClosureElementSyntax] = [],
         includeEmptyArgumentListParentheses: Bool = false

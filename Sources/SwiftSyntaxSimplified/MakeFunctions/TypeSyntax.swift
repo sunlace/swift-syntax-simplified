@@ -1,8 +1,8 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
-    public static func makeMemberTypeIdentifier(
+    static func makeMemberTypeIdentifier(
         baseType: TypeSyntax,
         name: TokenSyntax,
         genericArgumentClauseArgumentTypes: [TypeSyntax] = []
@@ -17,7 +17,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeMetatypeType(
+    static func makeMetatypeType(
         baseType: TypeSyntax,
         typeOrProtocol: TypeOrProtocolTokenSyntax
     ) -> MetatypeTypeSyntax {

@@ -5,7 +5,7 @@ extension Collection {
     }
 }
 
-public extension Collection where Indices: BidirectionalCollection {
+extension Collection where Indices: BidirectionalCollection {
     
     func mapWithIsLast<T>(_ transform: ((element: Iterator.Element, isLast: Bool)) throws -> T) rethrows -> [T] {
 

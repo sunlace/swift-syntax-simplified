@@ -1,8 +1,8 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
-    public static func makeReturnStmt(
+    static func makeReturnStmt(
         expression: ExprSyntax?
     ) -> ReturnStmtSyntax {
         SyntaxFactory.makeReturnStmt(

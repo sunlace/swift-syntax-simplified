@@ -1,9 +1,9 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
-    public static func makeGenericWhereClause(
-        requirementBodies: [Syntax]
+    static func makeGenericWhereClause(
+        requirementBodies: [RequirementSyntaxProtocol]
     ) -> GenericWhereClauseSyntax {
         SyntaxFactory.makeGenericWhereClause(
             whereKeyword: SyntaxFactory.makeWhereKeyword(),
@@ -11,7 +11,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeParameterClause(
+    static func makeParameterClause(
         parameters: [FunctionParameterSyntax]
     ) -> ParameterClauseSyntax {
 
@@ -22,7 +22,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeGenericParameterClause(
+    static func makeGenericParameterClause(
         genericParameters: [GenericParameterSyntax]
     ) -> GenericParameterClauseSyntax {
         SyntaxFactory.makeGenericParameterClause(
@@ -32,7 +32,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeGenericArgumentClause(
+    static func makeGenericArgumentClause(
         argumentTypes: [TypeSyntax]
     ) -> GenericArgumentClauseSyntax {
         SyntaxFactory.makeGenericArgumentClause(

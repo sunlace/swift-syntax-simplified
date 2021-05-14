@@ -1,8 +1,8 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
     
-    public static func makeImportDecl(
+    static func makeImportDecl(
         attributes: [Syntax] = [],
         modifiers: [DeclModifierSyntax] = [],
         importKind: TokenSyntax? = nil,
@@ -17,14 +17,14 @@ extension SyntaxFactory.Simplified {
         )
     }
     
-    public static func makeInitializerDecl(
+    static func makeInitializerDecl(
         attributes: [Syntax] = [],
         modifiers: [DeclModifierSyntax] = [],
         includeOptionalMark: Bool = false,
         genericParameters: [GenericParameterSyntax] = [],
         parameters: [FunctionParameterSyntax] = [],
         throwsOrRethrowsKeyword: ThrowsOrRethrowsKeywordTokenSyntax? = nil,
-        genericWhereClauseElementBodies: [Syntax] = [],
+        genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = [],
         bodyStatements: [CodeBlockItemSyntax]? = nil
     ) -> InitializerDeclSyntax {
         SyntaxFactory.makeInitializerDecl(
@@ -44,13 +44,13 @@ extension SyntaxFactory.Simplified {
         )
     }
     
-    public static func makeFunctionDecl(
+    static func makeFunctionDecl(
         attributes: [Syntax] = [],
         modifiers: [DeclModifierSyntax] = [],
         identifier: TokenSyntax,
         genericParameters: [GenericParameterSyntax] = [],
         signature: FunctionSignatureSyntax,
-        genericWhereClauseElementBodies: [Syntax] = [],
+        genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = [],
         bodyStatements: [CodeBlockItemSyntax]? = nil
     ) -> FunctionDeclSyntax {
         SyntaxFactory.makeFunctionDecl(
@@ -69,7 +69,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeAccessorDecl(
+    static func makeAccessorDecl(
         attributes: [Syntax] = [],
         modifier: DeclModifierSyntax? = nil,
         accessorKind: TokenSyntax,

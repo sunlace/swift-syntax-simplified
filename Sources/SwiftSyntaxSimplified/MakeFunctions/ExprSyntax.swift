@@ -1,8 +1,8 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
-    public static func makeFunctionCallExpr(
+    static func makeFunctionCallExpr(
         calledExpression: ExprSyntax,
         arguments: [TupleExprElementSyntax] = [],
         trailingClosure: TrailingClosureGroupSyntax? = nil
@@ -22,7 +22,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeArrayExpr(
+    static func makeArrayExpr(
         elements: [ExprSyntax] = []
     ) -> ArrayExprSyntax {
         SyntaxFactory.makeArrayExpr(
@@ -32,7 +32,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeTupleExpr(
+    static func makeTupleExpr(
         elements: [TupleExprElementSyntax] = []
     ) -> TupleExprSyntax {
         SyntaxFactory.makeTupleExpr(
@@ -42,7 +42,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeClosureExpr(
+    static func makeClosureExpr(
         signature: ClosureSignatureSyntax? = nil,
         statements: [CodeBlockItemSyntax] = []
     ) -> ClosureExprSyntax {
@@ -54,7 +54,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeSequenceExpr(
+    static func makeSequenceExpr(
         elements: [ExprSyntax]
     ) -> SequenceExprSyntax {
         SyntaxFactory.makeSequenceExpr(
@@ -62,7 +62,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeAsExpr(
+    static func makeAsExpr(
         questionOrExclamationMark: QuestionOrExclamationMarkTokenSyntax? = nil,
         typeName: TypeSyntax
     ) -> AsExprSyntax {
@@ -73,7 +73,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeMemberAccessExpr(
+    static func makeMemberAccessExpr(
         base: ExprSyntax? = nil,
         name: TokenSyntax,
         declNameArguments: DeclNameArgumentsSyntax? = nil
@@ -86,7 +86,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeAssignmentExpr() -> AssignmentExprSyntax {
+    static func makeAssignmentExpr() -> AssignmentExprSyntax {
         SyntaxFactory.makeAssignmentExpr(
             assignToken: SyntaxFactory.makeEqualToken()
         )

@@ -2,7 +2,7 @@
 
 SwiftSyntax without the boilerplate.
 
-## Usage
+## Setup
 
 ### Choose a version
 
@@ -49,9 +49,35 @@ import SwiftSyntax
 import SwiftSyntaxSimplified
 ```
 
-### Use the simplified interface
+## Usage
 
-Call the same methods that you would normally call, but with less boilerplate.
+### Convert easily between typed and type-erased objects
+
+SwiftSyntax has both typed and type-erased views of all Syntax objects, used throughout its API. With SwiftSyntaxSimplified, you can convert between them on demand.
+
+For example, many of the `SyntaxVisitor` APIs pass typed arguments but expect type-erased return values: 
+
+```swift
+override func visit(_ node: IfStmtSyntax) -> StmtSyntax {
+    return node.withConditions(<conditions>).typeErased
+}
+```
+
+Other APIs return type-erased values that must be converted to typed before anything useful can be done:
+
+```swift
+override func visit(_ node: OptionalChainingExprSyntax) -> ExprSyntax {
+    switch node.expression.typed {
+    case let stringLiteral as StringLiteralExprSyntax: <action>
+    case let functionCall as FunctionCallExprSyntax: <action>
+    ...
+    }
+}
+```
+
+### Use the simplified factory methods
+
+SwiftSyntax defines extremely verbose factory methods for creating syntax objects. With SwiftSyntaxSimplified, you can call the same methods that you would normally call, but with less boilerplate.
 
 **This:**
 
@@ -96,13 +122,13 @@ SyntaxFactory.makeFunctionCallExpr(
 )
 ```
 
-## Philosphy
+## Factory Method Simplifications
 
 This library duplicates `SyntaxFactory.make<X>(...)` methods as `SyntaxFactory.Simplified.make<X>(...)`
 
 For each duplicated method, it applies the following interface simplifications, in order. If no simplifications can be made, the method is not duplicated.
 
-### Simplifications
+### Steps
 1. If a method contains an `Optional<TokenSyntax>` parameter named `trailing<X>` that must always be a specific token or `nil`, depending on the position of the returned object in a list object (i.e. whether it is the last item in that list)
     - remove the parameter
     - duplicate the object definition `<X>Syntax` as `SyntaxFactory.Simplified.<X>Syntax`, with fields matching the `SyntaxFactory.Simplified.make<X>(...)` parameters (including all modifications)
@@ -143,8 +169,8 @@ For each duplicated method, it applies the following interface simplifications, 
 
 ## Contributing
 
-This library is incomplete, and contributions are welcome! We are actively reviewing PRs, and I will merge any that:
+This library is incomplete, and contributions are welcome! We are actively reviewing PRs, and will merge any that:
 - adds new methods making the improvements described in the Philosphy section
 - fixes issues in the existing code
 
-If you have an idea for other improvements or other changes to the Philosphy section, all ideas are welcome. However, consistency across the API is our top concern, so any changes to the Philosphy section must be accompanied by matching updates to all existing code and a new major version number (as appropriate).
+If you have ideas for other improvements, please open an issue or a PR. However, consistency across the API is our top concern, so any architectural changes should include equivalent changes to all existing code and, if appropriate, a new major version number.
