@@ -36,9 +36,7 @@ extension SyntaxFactory.Simplified {
     }
 
     public static func makeAccessorBlock(
-        leftBrace: TokenSyntax,
-        accessors: [AccessorDeclSyntax],
-        rightBrace: TokenSyntax
+        accessors: [AccessorDeclSyntax]
     ) -> AccessorBlockSyntax {
         SyntaxFactory.makeAccessorBlock(
             leftBrace: SyntaxFactory.makeLeftBraceToken(),
