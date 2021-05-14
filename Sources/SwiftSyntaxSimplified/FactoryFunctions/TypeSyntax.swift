@@ -2,6 +2,18 @@ import SwiftSyntax
 
 public extension SyntaxFactory.Simplified {
 
+    static func makeSimpleTypeIdentifier(
+        name: TokenSyntax,
+        genericArgumentClauseArgumentTypes: [TypeSyntax] = []
+    ) -> SimpleTypeIdentifierSyntax {
+        SyntaxFactory.makeSimpleTypeIdentifier(
+            name: name,
+            genericArgumentClause: genericArgumentClauseArgumentTypes.onlyIfNotEmpty.map {
+                makeGenericArgumentClause(argumentTypes: $0)
+            }
+        )
+    }
+
     static func makeMemberTypeIdentifier(
         baseType: TypeSyntax,
         name: TokenSyntax,
