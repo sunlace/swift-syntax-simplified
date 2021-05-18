@@ -41,4 +41,13 @@ public extension SyntaxFactory.Simplified {
             rightAngleBracket: SyntaxFactory.makeRightAngleToken()
         )
     }
+
+    static func makeInitializerClause(
+        value: ExprSyntax
+    ) -> InitializerClauseSyntax {
+        SyntaxFactory.makeInitializerClause(
+            equal: SyntaxFactory.makeEqualToken(),
+            value: value
+        )
+    }
 }

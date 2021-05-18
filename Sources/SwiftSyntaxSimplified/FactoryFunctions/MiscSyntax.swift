@@ -34,4 +34,13 @@ public extension SyntaxFactory.Simplified {
             rightParen: SyntaxFactory.makeRightParenToken()
         )
     }
+
+    public static func makeTypeAnnotation(
+        type: TypeSyntax
+    ) -> TypeAnnotationSyntax {
+        SyntaxFactory.makeTypeAnnotation(
+            colon: SyntaxFactory.makeColonToken(),
+            type: type
+        )
+    }
 }

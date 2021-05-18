@@ -19,6 +19,13 @@ public struct GenericParameterSyntax {
         inheritedType: TypeSyntax?
 }
 
+public struct PatternBindingSyntax {
+    let pattern: PatternSyntax,
+        type: TypeSyntax?,
+        initializerValue: ExprSyntax?,
+        accessor: AccessorSyntaxProtocol?
+}
+
 public extension SyntaxFactory.Simplified {
 
     static func makeTupleExprElement(
@@ -56,6 +63,20 @@ public extension SyntaxFactory.Simplified {
             secondName: secondName,
             type: type,
             defaultArgument: defaultArgument
+        )
+    }
+
+    static func makePatternBinding(
+        pattern: PatternSyntax,
+        type: TypeSyntax?,
+        initializerValue: ExprSyntax?,
+        accessor: AccessorSyntaxProtocol?
+    ) -> PatternBindingSyntax {
+        PatternBindingSyntax(
+            pattern: pattern,
+            type: type,
+            initializerValue: initializerValue,
+            accessor: accessor
         )
     }
 }

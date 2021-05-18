@@ -1,5 +1,10 @@
 import SwiftSyntax
 
+public protocol AccessorSyntaxProtocol: SyntaxProtocol {}
+
+extension CodeBlockSyntax: AccessorSyntaxProtocol {}
+extension AccessorBlockSyntax: AccessorSyntaxProtocol {}
+
 public extension SyntaxFactory.Simplified {
 
     static func makeCodeBlock(

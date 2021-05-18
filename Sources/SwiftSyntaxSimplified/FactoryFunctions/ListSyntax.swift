@@ -26,6 +26,20 @@ public extension SyntaxFactory.Simplified {
         })
     }
 
+    static func makePatternBindingList(
+        _ elements: [PatternBindingSyntax]
+    ) -> PatternBindingListSyntax {
+        SyntaxFactory.makePatternBindingList(elements.mapWithIsLast {
+            SyntaxFactory.makePatternBinding(
+                pattern: $0.element.pattern,
+                typeAnnotation: $0.element.type.map { makeTypeAnnotation(type: $0) },
+                initializer: $0.element.initializerValue.map { makeInitializerClause(value: $0) },
+                accessor: $0.element.accessor?.typeErased,
+                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+            )
+        })
+    }
+
     static func makeArrayElementList(
         _ expressions: [ExprSyntax] = [],
         includeTrailingComma: Bool = false
