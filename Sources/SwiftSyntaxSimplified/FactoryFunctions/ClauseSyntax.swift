@@ -50,4 +50,11 @@ public extension SyntaxFactory.Simplified {
             value: value
         )
     }
+
+    static func makeTypeInheritanceClause(inheritedTypes: [TypeSyntax]) -> TypeInheritanceClauseSyntax {
+        SyntaxFactory.makeTypeInheritanceClause(
+            colon: SyntaxFactory.makeColonToken(),
+            inheritedTypeCollection: makeInheritedTypeList(inheritedTypes)
+        )
+    }
 }
