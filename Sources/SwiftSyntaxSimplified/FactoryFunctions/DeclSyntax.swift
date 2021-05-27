@@ -84,4 +84,18 @@ public extension SyntaxFactory.Simplified {
             body: bodyStatements.map { makeCodeBlock(statements: $0) }
         )
     }
+
+    static func makeVariableDecl(
+        attributes: [Syntax] = [],
+        modifiers: [DeclModifierSyntax] = [],
+        letOrVarKeyword: LetOrVarKeywordTokenSyntax,
+        bindings: [PatternBindingSyntax]
+    ) -> VariableDeclSyntax {
+        SyntaxFactory.makeVariableDecl(
+            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            modifiers: modifiers.onlyIfNotEmpty.map { SyntaxFactory.makeModifierList($0) },
+            letOrVarKeyword: letOrVarKeyword.token,
+            bindings: makePatternBindingList(bindings)
+        )
+    }
 }
