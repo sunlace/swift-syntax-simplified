@@ -68,9 +68,9 @@ public extension SyntaxFactory.Simplified {
 
     static func makePatternBinding(
         pattern: PatternSyntax,
-        type: TypeSyntax?,
-        initializerValue: ExprSyntax?,
-        accessor: AccessorSyntaxProtocol?
+        type: TypeSyntax? = nil,
+        initializerValue: ExprSyntax? = nil,
+        accessor: AccessorSyntaxProtocol? = nil
     ) -> PatternBindingSyntax {
         PatternBindingSyntax(
             pattern: pattern,
