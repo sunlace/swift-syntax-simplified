@@ -10,7 +10,9 @@ public extension SyntaxFactory.Simplified {
     ) -> ImportDeclSyntax {
         SyntaxFactory.makeImportDecl(
             attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
-            modifiers: modifiers.onlyIfNotEmpty.map { SyntaxFactory.makeModifierList($0) },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+            },
             importTok: SyntaxFactory.makeImportKeyword(),
             importKind: importKind,
             path: makeAccessPath(pathComponentNames)
@@ -29,7 +31,9 @@ public extension SyntaxFactory.Simplified {
     ) -> InitializerDeclSyntax {
         SyntaxFactory.makeInitializerDecl(
             attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
-            modifiers: modifiers.onlyIfNotEmpty.map { SyntaxFactory.makeModifierList($0) },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+            },
             initKeyword: SyntaxFactory.makeInitKeyword(),
             optionalMark: includeOptionalMark ? SyntaxFactory.makePostfixQuestionMarkToken() : nil,
             genericParameterClause: genericParameters.onlyIfNotEmpty.map {
@@ -55,7 +59,9 @@ public extension SyntaxFactory.Simplified {
     ) -> FunctionDeclSyntax {
         SyntaxFactory.makeFunctionDecl(
             attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
-            modifiers: modifiers.onlyIfNotEmpty.map { SyntaxFactory.makeModifierList($0) },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+            },
             funcKeyword: SyntaxFactory.makeFuncKeyword(),
             identifier: identifier,
             genericParameterClause: genericParameters.onlyIfNotEmpty.map {
@@ -78,7 +84,7 @@ public extension SyntaxFactory.Simplified {
     ) -> AccessorDeclSyntax {
         SyntaxFactory.makeAccessorDecl(
             attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
-            modifier: modifier,
+            modifier: modifier.map { makeDeclModifier($0) },
             accessorKind: accessorKind,
             parameter: parameterName.map { makeAccessorParameter(name: $0) },
             body: bodyStatements.map { makeCodeBlock(statements: $0) }
@@ -93,7 +99,9 @@ public extension SyntaxFactory.Simplified {
     ) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
             attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
-            modifiers: modifiers.onlyIfNotEmpty.map { SyntaxFactory.makeModifierList($0) },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+            },
             letOrVarKeyword: letOrVarKeyword.token,
             bindings: makePatternBindingList(bindings)
         )

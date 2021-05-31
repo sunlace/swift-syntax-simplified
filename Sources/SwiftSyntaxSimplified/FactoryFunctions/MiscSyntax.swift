@@ -1,18 +1,5 @@
 import SwiftSyntax
-
 public extension SyntaxFactory.Simplified {
-    
-    static func makeDeclModifier(
-        name: TokenSyntax,
-        detail: TokenSyntax? = nil
-    ) -> DeclModifierSyntax {
-        SyntaxFactory.makeDeclModifier(
-            name: name,
-            detailLeftParen: detail.map { _ in SyntaxFactory.makeLeftParenToken() },
-            detail: detail,
-            detailRightParen: detail.map { _ in SyntaxFactory.makeRightParenToken() }
-        )
-    }
 
     static func makeMultipleTrailingClosureElement(
         label: TokenSyntax,
@@ -35,7 +22,7 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeTypeAnnotation(
+    static func makeTypeAnnotation(
         type: TypeSyntax
     ) -> TypeAnnotationSyntax {
         SyntaxFactory.makeTypeAnnotation(
