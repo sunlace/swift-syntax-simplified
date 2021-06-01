@@ -5,7 +5,7 @@ public protocol ClosureSignatureInputSyntaxProtocol: SyntaxProtocol {}
 extension ParameterClauseSyntax: ClosureSignatureInputSyntaxProtocol {}
 extension ClosureParamListSyntax: ClosureSignatureInputSyntaxProtocol {}
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
     static func makeClosureCaptureSignature(
         items: [ClosureCaptureItemSyntax]
@@ -36,7 +36,7 @@ extension SyntaxFactory.Simplified {
         )
     }
 
-    public static func makeFunctionSignature(
+    static func makeFunctionSignature(
         parameters: [FunctionParameterSyntax] = [],
         includeAsyncKeyword: Bool = false,
         throwsOrRethrowsKeyword: ThrowsOrRethrowsKeywordTokenSyntax? = nil,
