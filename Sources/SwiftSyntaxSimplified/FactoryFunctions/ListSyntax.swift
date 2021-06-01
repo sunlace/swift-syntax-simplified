@@ -117,4 +117,29 @@ public extension SyntaxFactory.Simplified {
             )
         })
     }
+
+    static func makeClosureCaptureItemList(
+        _ elements: [ClosureCaptureItemSyntax]
+    ) -> ClosureCaptureItemListSyntax {
+        SyntaxFactory.makeClosureCaptureItemList(elements.mapWithIsLast {
+            SyntaxFactory.makeClosureCaptureItem(
+                specifier: $0.element.specifier,
+                name: $0.element.name,
+                assignToken: $0.element.name.map { _ in SyntaxFactory.makeEqualToken() },
+                expression: $0.element.expression,
+                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+            )
+        })
+    }
+
+    static func makeClosureParamList(
+        _ paramNames: [TokenSyntax]
+    ) -> ClosureParamListSyntax {
+        SyntaxFactory.makeClosureParamList(paramNames.mapWithIsLast {
+            SyntaxFactory.makeClosureParam(
+                name: $0.element,
+                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+            )
+        })
+    }
 }

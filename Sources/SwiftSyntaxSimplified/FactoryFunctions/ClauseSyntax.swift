@@ -57,4 +57,13 @@ public extension SyntaxFactory.Simplified {
             inheritedTypeCollection: makeInheritedTypeList(inheritedTypes)
         )
     }
+
+    static func makeReturnClause(
+        returnType: TypeSyntax
+    ) -> ReturnClauseSyntax {
+        SyntaxFactory.makeReturnClause(
+            arrow: SyntaxFactory.makeArrowToken(),
+            returnType: returnType
+        )
+    }
 }

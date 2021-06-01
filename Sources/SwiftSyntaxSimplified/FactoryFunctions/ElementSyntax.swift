@@ -26,6 +26,12 @@ public struct PatternBindingSyntax {
         accessor: AccessorSyntaxProtocol?
 }
 
+public struct ClosureCaptureItemSyntax {
+    let specifier: TokenListSyntax?,
+        name: TokenSyntax?,
+        expression: ExprSyntax
+}
+
 public extension SyntaxFactory.Simplified {
 
     static func makeTupleExprElement(
@@ -77,6 +83,18 @@ public extension SyntaxFactory.Simplified {
             type: type,
             initializerValue: initializerValue,
             accessor: accessor
+        )
+    }
+
+    static func makeClosureCaptureItem(
+        specifier: TokenListSyntax? = nil,
+        name: TokenSyntax? = nil,
+        expression: ExprSyntax
+    ) -> ClosureCaptureItemSyntax {
+        ClosureCaptureItemSyntax(
+            specifier: specifier,
+            name: name,
+            expression: expression
         )
     }
 }
