@@ -30,7 +30,7 @@ public extension SyntaxFactory.Simplified {
             },
             input: input.map { $0.typeErased },
             asyncKeyword: includeAsyncKeyword ? SyntaxFactory.makeIdentifier("async") : nil,
-            throwsTok: SyntaxFactory.makeThrowsKeyword(),
+            throwsTok: includeThrowsTok ? SyntaxFactory.makeThrowsKeyword() : nil,
             output: returnType.map { makeReturnClause(returnType: $0) },
             inTok: SyntaxFactory.makeInKeyword()
         )
