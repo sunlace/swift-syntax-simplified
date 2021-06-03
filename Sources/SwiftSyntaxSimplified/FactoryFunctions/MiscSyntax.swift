@@ -42,4 +42,13 @@ public extension SyntaxFactory.Simplified {
             )
         })
     }
+
+    static func makeSourceFile(
+        statements: [CodeBlockItemSyntax] = []
+    ) -> SourceFileSyntax {
+        SyntaxFactory.makeSourceFile(
+            statements: SyntaxFactory.makeCodeBlockItemList(statements),
+            eofToken: SyntaxFactory.makeToken(.eof, presence: .present)
+        )
+    }
 }
