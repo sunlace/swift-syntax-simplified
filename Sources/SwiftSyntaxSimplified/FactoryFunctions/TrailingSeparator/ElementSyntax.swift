@@ -32,6 +32,12 @@ public struct ClosureCaptureItemSyntax {
         expression: ExprSyntax
 }
 
+public struct EnumCaseElementSyntax {
+    let identifier: TokenSyntax,
+        associatedValues: [FunctionParameterSyntax],
+        rawValue: ExprSyntax?
+}
+
 public extension SyntaxFactory.Simplified {
 
     static func makeTupleExprElement(
@@ -95,6 +101,18 @@ public extension SyntaxFactory.Simplified {
             specifier: specifier,
             name: name,
             expression: expression
+        )
+    }
+
+    static func makeEnumCaseElement(
+        identifier: TokenSyntax,
+        associatedValues: [FunctionParameterSyntax] = [],
+        rawValue: ExprSyntax? = nil
+    ) -> EnumCaseElementSyntax {
+        EnumCaseElementSyntax(
+            identifier: identifier,
+            associatedValues: associatedValues,
+            rawValue: rawValue
         )
     }
 }

@@ -30,4 +30,16 @@ public extension SyntaxFactory.Simplified {
             type: type
         )
     }
+
+    static func makeMemberDeclList(
+        _ decls: [DeclSyntax] = [],
+        includeSemicolons: Bool = false
+    ) -> MemberDeclListSyntax {
+        SyntaxFactory.makeMemberDeclList(decls.map {
+            SyntaxFactory.makeMemberDeclListItem(
+                decl: $0,
+                semicolon: includeSemicolons ? SyntaxFactory.makeSemicolonToken() : nil
+            )
+        })
+    }
 }

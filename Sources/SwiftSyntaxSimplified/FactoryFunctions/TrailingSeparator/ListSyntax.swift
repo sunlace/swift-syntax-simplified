@@ -143,14 +143,17 @@ public extension SyntaxFactory.Simplified {
         })
     }
 
-    static func makeMemberDeclList(
-        _ decls: [DeclSyntax] = [],
-        includeSemicolons: Bool = false
-    ) -> MemberDeclListSyntax {
-        SyntaxFactory.makeMemberDeclList(decls.map {
-            SyntaxFactory.makeMemberDeclListItem(
-                decl: $0,
-                semicolon: includeSemicolons ? SyntaxFactory.makeSemicolonToken() : nil
+    static func makeEnumCaseElementList(
+        _ elements: [EnumCaseElementSyntax]
+    ) -> EnumCaseElementListSyntax {
+        SyntaxFactory.makeEnumCaseElementList(elements.mapWithIsLast {
+            SyntaxFactory.makeEnumCaseElement(
+                identifier: $0.element.identifier,
+                associatedValue: $0.element.associatedValues.onlyIfNotEmpty.map {
+                    makeParameterClause(parameters: $0)
+                },
+                rawValue: $0.element.rawValue.map { makeInitializerClause(value: $0) },
+                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
             )
         })
     }

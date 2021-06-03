@@ -2,14 +2,7 @@ import SwiftSyntax
 
 public extension SyntaxFactory.Simplified {
 
-    static func makeGenericWhereClause(
-        requirementBodies: [RequirementSyntaxProtocol]
-    ) -> GenericWhereClauseSyntax {
-        SyntaxFactory.makeGenericWhereClause(
-            whereKeyword: SyntaxFactory.makeWhereKeyword(),
-            requirementList: makeGenericRequirementList(requirementBodies)
-        )
-    }
+    // MARK: Token Pair Clauses
 
     static func makeParameterClause(
         parameters: [FunctionParameterSyntax]
@@ -42,6 +35,8 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    // MARK: Token Clauses
+
     static func makeInitializerClause(
         value: ExprSyntax
     ) -> InitializerClauseSyntax {
@@ -51,7 +46,9 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
-    static func makeTypeInheritanceClause(inheritedTypes: [TypeSyntax]) -> TypeInheritanceClauseSyntax {
+    static func makeTypeInheritanceClause(
+        inheritedTypes: [TypeSyntax]
+    ) -> TypeInheritanceClauseSyntax {
         SyntaxFactory.makeTypeInheritanceClause(
             colon: SyntaxFactory.makeColonToken(),
             inheritedTypeCollection: makeInheritedTypeList(inheritedTypes)
@@ -64,6 +61,15 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeReturnClause(
             arrow: SyntaxFactory.makeArrowToken(),
             returnType: returnType
+        )
+    }
+
+    static func makeGenericWhereClause(
+        requirementBodies: [RequirementSyntaxProtocol]
+    ) -> GenericWhereClauseSyntax {
+        SyntaxFactory.makeGenericWhereClause(
+            whereKeyword: SyntaxFactory.makeWhereKeyword(),
+            requirementList: makeGenericRequirementList(requirementBodies)
         )
     }
 }

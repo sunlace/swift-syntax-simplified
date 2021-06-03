@@ -30,7 +30,9 @@ public extension SyntaxFactory.Simplified {
         bodyStatements: [CodeBlockItemSyntax]? = nil
     ) -> InitializerDeclSyntax {
         SyntaxFactory.makeInitializerDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifiers: modifiers.onlyIfNotEmpty.map {
                 SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
             },
@@ -58,7 +60,9 @@ public extension SyntaxFactory.Simplified {
         bodyStatements: [CodeBlockItemSyntax]? = nil
     ) -> FunctionDeclSyntax {
         SyntaxFactory.makeFunctionDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifiers: modifiers.onlyIfNotEmpty.map {
                 SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
             },
@@ -83,7 +87,9 @@ public extension SyntaxFactory.Simplified {
         bodyStatements: [CodeBlockItemSyntax]?
     ) -> AccessorDeclSyntax {
         SyntaxFactory.makeAccessorDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifier: modifier.map { makeDeclModifier($0) },
             accessorKind: accessorKind,
             parameter: parameterName.map { makeAccessorParameter(name: $0) },
@@ -98,7 +104,9 @@ public extension SyntaxFactory.Simplified {
         bindings: [PatternBindingSyntax]
     ) -> VariableDeclSyntax {
         SyntaxFactory.makeVariableDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifiers: modifiers.onlyIfNotEmpty.map {
                 SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
             },
@@ -117,7 +125,9 @@ public extension SyntaxFactory.Simplified {
         memberDecls: [DeclSyntax] = []
     ) -> ClassDeclSyntax {
         SyntaxFactory.makeClassDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifiers: modifiers.onlyIfNotEmpty.map {
                 SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
             },
@@ -146,7 +156,9 @@ public extension SyntaxFactory.Simplified {
         memberDecls: [DeclSyntax] = []
     ) -> StructDeclSyntax {
         SyntaxFactory.makeStructDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifiers: modifiers.onlyIfNotEmpty.map {
                 SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
             },
@@ -175,7 +187,9 @@ public extension SyntaxFactory.Simplified {
         memberDecls: [DeclSyntax] = []
     ) -> EnumDeclSyntax {
         SyntaxFactory.makeEnumDecl(
-            attributes: attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
             modifiers: modifiers.onlyIfNotEmpty.map {
                 SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
             },
@@ -191,6 +205,23 @@ public extension SyntaxFactory.Simplified {
                 makeGenericWhereClause(requirementBodies: $0)
             },
             members: makeMemberDeclBlock(memberDecls: memberDecls)
+        )
+    }
+
+    static func makeEnumCaseDecl(
+        attributes: [Syntax] = [],
+        modifiers: [DeclModifierSyntax] = [],
+        elements: [EnumCaseElementSyntax]
+    ) -> EnumCaseDeclSyntax {
+        SyntaxFactory.makeEnumCaseDecl(
+            attributes: attributes.onlyIfNotEmpty.map {
+                SyntaxFactory.makeAttributeList($0)
+            },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+            },
+            caseKeyword: SyntaxFactory.makeCaseKeyword(),
+            elements: makeEnumCaseElementList(elements)
         )
     }
 }
