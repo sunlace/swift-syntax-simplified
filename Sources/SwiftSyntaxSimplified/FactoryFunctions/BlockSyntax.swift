@@ -26,4 +26,14 @@ public extension SyntaxFactory.Simplified {
             rightBrace: SyntaxFactory.makeRightBraceToken()
         )
     }
+
+    static func makeMemberDeclBlock(
+        memberDecls: [DeclSyntax] = []
+    ) -> MemberDeclBlockSyntax {
+        SyntaxFactory.makeMemberDeclBlock(
+            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            members: makeMemberDeclList(memberDecls),
+            rightBrace: SyntaxFactory.makeRightBraceToken()
+        )
+    }
 }
