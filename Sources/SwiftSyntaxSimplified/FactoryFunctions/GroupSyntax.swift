@@ -11,7 +11,22 @@ public struct FunctionParameterTypeGroupSyntax {
         ellipsis: TokenSyntax?
 }
 
+public struct FunctionParameterNameGroupSyntax {
+    let firstName: TokenSyntax,
+        secondName: TokenSyntax?
+}
+
 public extension SyntaxFactory.Simplified {
+
+    static func makeFunctionParameterNameGroup(
+        firstName: TokenSyntax,
+        secondName: TokenSyntax? = nil
+    ) -> FunctionParameterNameGroupSyntax {
+        FunctionParameterNameGroupSyntax(
+            firstName: firstName,
+            secondName: secondName
+        )
+    }
 
     static func makeFunctionParameterTypeGroup(
         type: TypeSyntax,

@@ -83,11 +83,13 @@ public extension SyntaxFactory.Simplified {
         _ elements: [FunctionParameterSyntax] = []
     ) -> FunctionParameterListSyntax {
         SyntaxFactory.makeFunctionParameterList(elements.mapWithIsLast {
-            SyntaxFactory.makeFunctionParameter(
+            let isColonNecessary = $0.element.name != nil && $0.element.type != nil
+
+            return SyntaxFactory.makeFunctionParameter(
                 attributes: $0.element.attributes.onlyIfNotEmpty.map { SyntaxFactory.makeAttributeList($0) },
-                firstName: $0.element.firstName,
-                secondName: $0.element.secondName,
-                colon: $0.element.type.map { _ in SyntaxFactory.makeColonToken() },
+                firstName: $0.element.name?.firstName,
+                secondName: $0.element.name?.secondName,
+                colon: isColonNecessary ? SyntaxFactory.makeColonToken() : nil,
                 type: $0.element.type?.type,
                 ellipsis: $0.element.type?.ellipsis,
                 defaultArgument: $0.element.defaultArgument,

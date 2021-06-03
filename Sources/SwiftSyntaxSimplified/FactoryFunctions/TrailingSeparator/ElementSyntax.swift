@@ -7,8 +7,7 @@ public struct TupleExprElementSyntax {
 
 public struct FunctionParameterSyntax {
     let attributes: [Syntax],
-        firstName: TokenSyntax?,
-        secondName: TokenSyntax?,
+        name: FunctionParameterNameGroupSyntax?,
         type: FunctionParameterTypeGroupSyntax?,
         defaultArgument: InitializerClauseSyntax?
 }
@@ -64,15 +63,13 @@ public extension SyntaxFactory.Simplified {
 
     static func makeFunctionParameter(
         attributes: [Syntax] = [],
-        firstName: TokenSyntax? = nil, // TODO: One of these must be required, right?
-        secondName: TokenSyntax? = nil,
+        name: FunctionParameterNameGroupSyntax? = nil,
         type: FunctionParameterTypeGroupSyntax? = nil,
         defaultArgument: InitializerClauseSyntax? = nil
     ) -> FunctionParameterSyntax {
         FunctionParameterSyntax(
             attributes: attributes,
-            firstName: firstName,
-            secondName: secondName,
+            name: name,
             type: type,
             defaultArgument: defaultArgument
         )
