@@ -39,4 +39,36 @@ public extension SyntaxFactory.Simplified {
             typeOrProtocol: typeOrProtocol.token
         )
     }
+
+    static func makeOptionalType(
+        wrappedType: TypeSyntax
+    ) -> OptionalTypeSyntax {
+        SyntaxFactory.makeOptionalType(
+            wrappedType: wrappedType,
+            questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
+        )
+    }
+
+    static func makeArrayType(
+        elementType: TypeSyntax
+    ) -> ArrayTypeSyntax {
+        SyntaxFactory.makeArrayType(
+            leftSquareBracket: SyntaxFactory.makeLeftSquareBracketToken(),
+            elementType: elementType,
+            rightSquareBracket: SyntaxFactory.makeRightSquareBracketToken()
+        )
+    }
+
+    static func makeDictionaryType(
+        keyType: TypeSyntax,
+        valueType: TypeSyntax
+    ) -> DictionaryTypeSyntax {
+        SyntaxFactory.makeDictionaryType(
+            leftSquareBracket: SyntaxFactory.makeLeftSquareBracketToken(),
+            keyType: keyType,
+            colon: SyntaxFactory.makeColonToken(),
+            valueType: valueType,
+            rightSquareBracket: SyntaxFactory.makeRightSquareBracketToken()
+        )
+    }
 }

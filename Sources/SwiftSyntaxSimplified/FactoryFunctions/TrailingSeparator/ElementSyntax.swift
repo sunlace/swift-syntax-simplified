@@ -1,8 +1,20 @@
 import SwiftSyntax
 
-public struct TupleExprElementSyntax {
-    let label: TokenSyntax?,
+public struct ClosureCaptureItemSyntax {
+    let specifier: TokenListSyntax?,
+        name: TokenSyntax?,
         expression: ExprSyntax
+}
+
+public struct DictionaryElementSyntax {
+    let keyExpression: ExprSyntax,
+        valueExpression: ExprSyntax
+}
+
+public struct EnumCaseElementSyntax {
+    let identifier: TokenSyntax,
+        associatedValues: [FunctionParameterSyntax],
+        rawValue: ExprSyntax?
 }
 
 public struct FunctionParameterSyntax {
@@ -25,39 +37,44 @@ public struct PatternBindingSyntax {
         accessor: AccessorSyntaxProtocol?
 }
 
-public struct ClosureCaptureItemSyntax {
-    let specifier: TokenListSyntax?,
-        name: TokenSyntax?,
+public struct TupleExprElementSyntax {
+    let label: TokenSyntax?,
         expression: ExprSyntax
-}
-
-public struct EnumCaseElementSyntax {
-    let identifier: TokenSyntax,
-        associatedValues: [FunctionParameterSyntax],
-        rawValue: ExprSyntax?
 }
 
 public extension SyntaxFactory.Simplified {
 
-    static func makeTupleExprElement(
-        label: TokenSyntax? = nil,
+    static func makeClosureCaptureItem(
+        specifier: TokenListSyntax? = nil,
+        name: TokenSyntax? = nil,
         expression: ExprSyntax
-    ) -> TupleExprElementSyntax {
-        TupleExprElementSyntax(
-            label: label,
+    ) -> ClosureCaptureItemSyntax {
+        ClosureCaptureItemSyntax(
+            specifier: specifier,
+            name: name,
             expression: expression
         )
     }
 
-    static func makeGenericParameter(
-        attributes: [Syntax] = [],
-        name: TokenSyntax,
-        inheritedType: TypeSyntax? = nil
-    ) -> GenericParameterSyntax {
-        GenericParameterSyntax(
-            attributes: attributes,
-            name: name,
-            inheritedType: inheritedType
+    static func makeDictionaryElement(
+        keyExpression: ExprSyntax,
+        valueExpression: ExprSyntax
+    ) -> DictionaryElementSyntax {
+        DictionaryElementSyntax(
+            keyExpression: keyExpression,
+            valueExpression: valueExpression
+        )
+    }
+
+    static func makeEnumCaseElement(
+        identifier: TokenSyntax,
+        associatedValues: [FunctionParameterSyntax] = [],
+        rawValue: ExprSyntax? = nil
+    ) -> EnumCaseElementSyntax {
+        EnumCaseElementSyntax(
+            identifier: identifier,
+            associatedValues: associatedValues,
+            rawValue: rawValue
         )
     }
 
@@ -75,6 +92,18 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeGenericParameter(
+        attributes: [Syntax] = [],
+        name: TokenSyntax,
+        inheritedType: TypeSyntax? = nil
+    ) -> GenericParameterSyntax {
+        GenericParameterSyntax(
+            attributes: attributes,
+            name: name,
+            inheritedType: inheritedType
+        )
+    }
+
     static func makePatternBinding(
         pattern: PatternSyntax,
         type: TypeSyntax? = nil,
@@ -89,27 +118,13 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
-    static func makeClosureCaptureItem(
-        specifier: TokenListSyntax? = nil,
-        name: TokenSyntax? = nil,
+    static func makeTupleExprElement(
+        label: TokenSyntax? = nil,
         expression: ExprSyntax
-    ) -> ClosureCaptureItemSyntax {
-        ClosureCaptureItemSyntax(
-            specifier: specifier,
-            name: name,
+    ) -> TupleExprElementSyntax {
+        TupleExprElementSyntax(
+            label: label,
             expression: expression
-        )
-    }
-
-    static func makeEnumCaseElement(
-        identifier: TokenSyntax,
-        associatedValues: [FunctionParameterSyntax] = [],
-        rawValue: ExprSyntax? = nil
-    ) -> EnumCaseElementSyntax {
-        EnumCaseElementSyntax(
-            identifier: identifier,
-            associatedValues: associatedValues,
-            rawValue: rawValue
         )
     }
 }

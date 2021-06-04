@@ -54,6 +54,22 @@ public extension SyntaxFactory.Simplified {
         })
     }
 
+    static func makeDictionaryElementList(
+        _ elements: [DictionaryElementSyntax] = [],
+        includeTrailingComma: Bool = false
+    ) -> DictionaryElementListSyntax {
+        SyntaxFactory.makeDictionaryElementList(elements.mapWithIsLast {
+            let skipTrailingComma = $0.isLast && !includeTrailingComma
+
+            return SyntaxFactory.makeDictionaryElement(
+                keyExpression: $0.element.keyExpression,
+                colon: SyntaxFactory.makeColonToken(),
+                valueExpression: $0.element.valueExpression,
+                trailingComma: skipTrailingComma ? nil : SyntaxFactory.makeCommaToken()
+            )
+        })
+    }
+
     static func makeGenericArgumentList(
         _ argumentTypes: [TypeSyntax]
     ) -> GenericArgumentListSyntax {

@@ -32,6 +32,17 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeDictionaryExpr(
+        elements: [DictionaryElementSyntax] = []
+    ) -> DictionaryExprSyntax {
+        SyntaxFactory.makeDictionaryExpr(
+            leftSquare: SyntaxFactory.makeLeftSquareBracketToken(),
+            content: elements.onlyIfNotEmpty.map { makeDictionaryElementList($0) }?.typeErased
+                ?? SyntaxFactory.makeColonToken().typeErased,
+            rightSquare: SyntaxFactory.makeRightSquareBracketToken()
+        )
+    }
+
     static func makeTupleExpr(
         elements: [TupleExprElementSyntax] = []
     ) -> TupleExprSyntax {
