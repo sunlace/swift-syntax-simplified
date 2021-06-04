@@ -71,4 +71,14 @@ public extension SyntaxFactory.Simplified {
             rightSquareBracket: SyntaxFactory.makeRightSquareBracketToken()
         )
     }
+
+    static func makeTupleType(
+        elementTypes: [TypeSyntax]
+    ) -> TupleTypeSyntax {
+        SyntaxFactory.makeTupleType(
+            leftParen: SyntaxFactory.makeLeftParenToken(),
+            elements: makeTupleTypeElementList(elementTypes),
+            rightParen: SyntaxFactory.makeRightParenToken()
+        )
+    }
 }
