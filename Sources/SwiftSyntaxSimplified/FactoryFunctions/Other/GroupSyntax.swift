@@ -1,9 +1,8 @@
 import SwiftSyntax
 
-public struct TrailingClosureGroupSyntax {
-    let trailingClosure: ClosureExprSyntax,
-        additionalTrailingClosures: [MultipleTrailingClosureElementSyntax],
-        includeEmptyArgumentListParentheses: Bool
+public struct FunctionParameterNameGroupSyntax {
+    let firstName: TokenSyntax,
+        secondName: TokenSyntax?
 }
 
 public struct FunctionParameterTypeGroupSyntax {
@@ -11,9 +10,10 @@ public struct FunctionParameterTypeGroupSyntax {
         ellipsis: TokenSyntax?
 }
 
-public struct FunctionParameterNameGroupSyntax {
-    let firstName: TokenSyntax,
-        secondName: TokenSyntax?
+public struct TrailingClosureGroupSyntax {
+    let trailingClosure: ClosureExprSyntax,
+        additionalTrailingClosures: [MultipleTrailingClosureElementSyntax],
+        includeEmptyArgumentListParentheses: Bool
 }
 
 public extension SyntaxFactory.Simplified {

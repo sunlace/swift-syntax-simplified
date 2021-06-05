@@ -51,4 +51,45 @@ public extension SyntaxFactory.Simplified {
             eofToken: SyntaxFactory.makeToken(.eof, presence: .present)
         )
     }
+
+    static func makeAttributeList(
+        _ attributes: [AttributeSyntax]
+    ) -> AttributeListSyntax {
+        SyntaxFactory.makeAttributeList(attributes.map { $0.typeErased })
+    }
+
+    static func makeSwitchCaseList(
+        _ cases: [SwitchCaseSyntax]
+    ) -> SwitchCaseListSyntax {
+        SyntaxFactory.makeSwitchCaseList(cases.map { $0.typeErased })
+    }
+
+    static func makeAttribute(
+        attributeName: TokenSyntax,
+        argument: Syntax? = nil,
+        tokenList: TokenListSyntax? = nil // TODO: What is this for?
+    ) -> AttributeSyntax {
+        SyntaxFactory.makeAttribute(
+            atSignToken: SyntaxFactory.makeAtSignToken(),
+            attributeName: attributeName,
+            leftParen: argument.map { _ in SyntaxFactory.makeLeftParenToken() },
+            argument: argument,
+            rightParen: argument.map { _ in SyntaxFactory.makeRightParenToken() },
+            tokenList: tokenList
+        )
+    }
+
+    static func makeSwitchCase(
+        includeUnknownAttr: Bool,
+        label: LabelSyntaxProtocol,
+        statements: [CodeBlockItemSyntax]
+    ) -> SwitchCaseSyntax {
+        SyntaxFactory.makeSwitchCase(
+            unknownAttr: makeAttribute(
+                attributeName: SyntaxFactory.makeIdentifier("unknown")
+            ),
+            label: label.typeErased,
+            statements: SyntaxFactory.makeCodeBlockItemList(statements)
+        )
+    }
 }

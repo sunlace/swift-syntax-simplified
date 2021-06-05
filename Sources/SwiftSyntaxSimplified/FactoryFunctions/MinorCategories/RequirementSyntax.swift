@@ -1,11 +1,6 @@
 import SwiftSyntax
 
-public protocol RequirementSyntaxProtocol: SyntaxProtocol {}
-
-extension ConformanceRequirementSyntax: RequirementSyntaxProtocol {}
-extension SameTypeRequirementSyntax: RequirementSyntaxProtocol {}
-
-public extension SyntaxFactory.Simplified {
+extension SyntaxFactory.Simplified {
 
     static func makeConformanceRequirement(
         leftTypeIdentifier: TypeSyntax,

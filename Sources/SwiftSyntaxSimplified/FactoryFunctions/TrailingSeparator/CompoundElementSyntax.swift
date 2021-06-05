@@ -1,5 +1,10 @@
 import SwiftSyntax
 
+public struct CaseItemSyntax {
+    let pattern: PatternSyntax,
+        guardResult: ExprSyntax?
+}
+
 public struct ClosureCaptureItemSyntax {
     let specifier: TokenListSyntax?,
         name: TokenSyntax?,
@@ -18,14 +23,14 @@ public struct EnumCaseElementSyntax {
 }
 
 public struct FunctionParameterSyntax {
-    let attributes: [Syntax],
+    let attributes: [AttributeSyntax],
         name: FunctionParameterNameGroupSyntax?,
         type: FunctionParameterTypeGroupSyntax?,
         defaultArgument: InitializerClauseSyntax?
 }
 
 public struct GenericParameterSyntax {
-    let attributes: [Syntax],
+    let attributes: [AttributeSyntax],
         name: TokenSyntax,
         inheritedType: TypeSyntax?
 }
@@ -43,6 +48,16 @@ public struct TupleExprElementSyntax {
 }
 
 public extension SyntaxFactory.Simplified {
+
+    static func makeCaseItemSyntax(
+        pattern: PatternSyntax,
+        guardResult: ExprSyntax?
+    ) -> CaseItemSyntax {
+        CaseItemSyntax(
+            pattern: pattern,
+            guardResult: guardResult
+        )
+    }
 
     static func makeClosureCaptureItem(
         specifier: TokenListSyntax? = nil,
@@ -79,7 +94,7 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeFunctionParameter(
-        attributes: [Syntax] = [],
+        attributes: [AttributeSyntax] = [],
         name: FunctionParameterNameGroupSyntax? = nil,
         type: FunctionParameterTypeGroupSyntax? = nil,
         defaultArgument: InitializerClauseSyntax? = nil
@@ -93,7 +108,7 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeGenericParameter(
-        attributes: [Syntax] = [],
+        attributes: [AttributeSyntax] = [],
         name: TokenSyntax,
         inheritedType: TypeSyntax? = nil
     ) -> GenericParameterSyntax {
