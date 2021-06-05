@@ -1,6 +1,6 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
     static func makeEnumDecl(
         attributes: [AttributeSyntax] = [],

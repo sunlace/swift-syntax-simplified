@@ -1,4 +1,5 @@
 import SwiftSyntax
+
 public extension SyntaxFactory.Simplified {
 
     static func makeMultipleTrailingClosureElement(

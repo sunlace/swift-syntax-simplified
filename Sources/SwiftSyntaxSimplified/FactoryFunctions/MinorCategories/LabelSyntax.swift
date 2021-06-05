@@ -1,6 +1,6 @@
 import SwiftSyntax
 
-extension SyntaxFactory.Simplified {
+public extension SyntaxFactory.Simplified {
 
     public static func makeSwitchCaseLabel(
         caseItems: [CaseItemSyntax]
