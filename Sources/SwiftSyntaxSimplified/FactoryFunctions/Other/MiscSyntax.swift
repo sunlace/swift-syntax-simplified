@@ -81,7 +81,7 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeSwitchCase(
-        includeUnknownAttr: Bool,
+        includeUnknownAttr: Bool = false,
         label: LabelSyntaxProtocol,
         statements: [CodeBlockItemSyntax]
     ) -> SwitchCaseSyntax {
