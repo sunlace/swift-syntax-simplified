@@ -86,9 +86,9 @@ public extension SyntaxFactory.Simplified {
         statements: [CodeBlockItemSyntax]
     ) -> SwitchCaseSyntax {
         SyntaxFactory.makeSwitchCase(
-            unknownAttr: makeAttribute(
+            unknownAttr: includeUnknownAttr ? makeAttribute(
                 attributeName: SyntaxFactory.makeIdentifier("unknown")
-            ),
+            ) : nil,
             label: label.typeErased,
             statements: SyntaxFactory.makeCodeBlockItemList(statements)
         )
