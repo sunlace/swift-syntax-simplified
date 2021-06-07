@@ -1,10 +1,5 @@
 import SwiftSyntax
 
-public protocol ClosureSignatureInputSyntaxProtocol: SyntaxProtocol {}
-
-extension ParameterClauseSyntax: ClosureSignatureInputSyntaxProtocol {}
-extension ClosureParamListSyntax: ClosureSignatureInputSyntaxProtocol {}
-
 public extension SyntaxFactory.Simplified {
 
     static func makeClosureCaptureSignature(
