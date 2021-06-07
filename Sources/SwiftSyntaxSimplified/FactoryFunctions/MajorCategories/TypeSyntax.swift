@@ -21,7 +21,7 @@ public extension SyntaxFactory.Simplified {
     ) -> MemberTypeIdentifierSyntax {
         SyntaxFactory.makeMemberTypeIdentifier(
             baseType: baseType,
-            period: SyntaxFactory.makePeriodToken(),
+            period: SimpleTokenSyntax.period.token,
             name: name,
             genericArgumentClause: genericArgumentClauseArgumentTypes.onlyIfNotEmpty.map {
                 makeGenericArgumentClause(argumentTypes: $0)
@@ -35,7 +35,7 @@ public extension SyntaxFactory.Simplified {
     ) -> MetatypeTypeSyntax {
         SyntaxFactory.makeMetatypeType(
             baseType: baseType,
-            period: SyntaxFactory.makePeriodToken(),
+            period: SimpleTokenSyntax.period.token,
             typeOrProtocol: typeOrProtocol.token
         )
     }
@@ -45,7 +45,7 @@ public extension SyntaxFactory.Simplified {
     ) -> OptionalTypeSyntax {
         SyntaxFactory.makeOptionalType(
             wrappedType: wrappedType,
-            questionMark: SyntaxFactory.makePostfixQuestionMarkToken()
+            questionMark: SimpleTokenSyntax.questionMark(.postfix).token
         )
     }
 
@@ -53,9 +53,9 @@ public extension SyntaxFactory.Simplified {
         elementType: TypeSyntax
     ) -> ArrayTypeSyntax {
         SyntaxFactory.makeArrayType(
-            leftSquareBracket: SyntaxFactory.makeLeftSquareBracketToken(),
+            leftSquareBracket: SimpleTokenSyntax.squareBracket(.left).token,
             elementType: elementType,
-            rightSquareBracket: SyntaxFactory.makeRightSquareBracketToken()
+            rightSquareBracket: SimpleTokenSyntax.squareBracket(.right).token
         )
     }
 
@@ -64,11 +64,11 @@ public extension SyntaxFactory.Simplified {
         valueType: TypeSyntax
     ) -> DictionaryTypeSyntax {
         SyntaxFactory.makeDictionaryType(
-            leftSquareBracket: SyntaxFactory.makeLeftSquareBracketToken(),
+            leftSquareBracket: SimpleTokenSyntax.squareBracket(.left).token,
             keyType: keyType,
-            colon: SyntaxFactory.makeColonToken(),
+            colon: SimpleTokenSyntax.colon.token,
             valueType: valueType,
-            rightSquareBracket: SyntaxFactory.makeRightSquareBracketToken()
+            rightSquareBracket: SimpleTokenSyntax.squareBracket(.right).token
         )
     }
 
@@ -76,9 +76,9 @@ public extension SyntaxFactory.Simplified {
         elementTypes: [TypeSyntax]
     ) -> TupleTypeSyntax {
         SyntaxFactory.makeTupleType(
-            leftParen: SyntaxFactory.makeLeftParenToken(),
+            leftParen: SimpleTokenSyntax.paren(.left).token,
             elements: makeTupleTypeElementList(elementTypes),
-            rightParen: SyntaxFactory.makeRightParenToken()
+            rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
 }

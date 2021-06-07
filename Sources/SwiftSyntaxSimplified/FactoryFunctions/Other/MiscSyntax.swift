@@ -8,7 +8,7 @@ public extension SyntaxFactory.Simplified {
     ) -> MultipleTrailingClosureElementSyntax {
         SyntaxFactory.makeMultipleTrailingClosureElement(
             label: label,
-            colon: SyntaxFactory.makeColonToken(),
+            colon: SimpleTokenSyntax.colon.token,
             closure: closure
         )
     }
@@ -17,9 +17,9 @@ public extension SyntaxFactory.Simplified {
         name: TokenSyntax
     ) -> AccessorParameterSyntax {
         SyntaxFactory.makeAccessorParameter(
-            leftParen: SyntaxFactory.makeLeftParenToken(),
+            leftParen: SimpleTokenSyntax.paren(.left).token,
             name: name,
-            rightParen: SyntaxFactory.makeRightParenToken()
+            rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
 
@@ -27,42 +27,18 @@ public extension SyntaxFactory.Simplified {
         type: TypeSyntax
     ) -> TypeAnnotationSyntax {
         SyntaxFactory.makeTypeAnnotation(
-            colon: SyntaxFactory.makeColonToken(),
+            colon: SimpleTokenSyntax.colon.token,
             type: type
         )
     }
 
-    static func makeMemberDeclList(
-        _ decls: [DeclSyntax] = [],
-        includeSemicolons: Bool = false
-    ) -> MemberDeclListSyntax {
-        SyntaxFactory.makeMemberDeclList(decls.map {
-            SyntaxFactory.makeMemberDeclListItem(
-                decl: $0,
-                semicolon: includeSemicolons ? SyntaxFactory.makeSemicolonToken() : nil
-            )
-        })
-    }
-
     static func makeSourceFile(
-        statements: [CodeBlockItemSyntax] = []
+        statements: [Syntax] = []
     ) -> SourceFileSyntax {
         SyntaxFactory.makeSourceFile(
-            statements: SyntaxFactory.makeCodeBlockItemList(statements),
-            eofToken: SyntaxFactory.makeToken(.eof, presence: .present)
+            statements: makeCodeBlockItemList(statements),
+            eofToken: SimpleTokenSyntax.eof.token
         )
-    }
-
-    static func makeAttributeList(
-        _ attributes: [AttributeSyntax]
-    ) -> AttributeListSyntax {
-        SyntaxFactory.makeAttributeList(attributes.map { $0.typeErased })
-    }
-
-    static func makeSwitchCaseList(
-        _ cases: [SwitchCaseSyntax]
-    ) -> SwitchCaseListSyntax {
-        SyntaxFactory.makeSwitchCaseList(cases.map { $0.typeErased })
     }
 
     static func makeAttribute(
@@ -71,11 +47,11 @@ public extension SyntaxFactory.Simplified {
         tokenList: TokenListSyntax? = nil // TODO: What is this for?
     ) -> AttributeSyntax {
         SyntaxFactory.makeAttribute(
-            atSignToken: SyntaxFactory.makeAtSignToken(),
+            atSignToken: SimpleTokenSyntax.atSign.token,
             attributeName: attributeName,
-            leftParen: argument.map { _ in SyntaxFactory.makeLeftParenToken() },
+            leftParen: argument.map { _ in SimpleTokenSyntax.paren(.left).token },
             argument: argument,
-            rightParen: argument.map { _ in SyntaxFactory.makeRightParenToken() },
+            rightParen: argument.map { _ in SimpleTokenSyntax.paren(.right).token },
             tokenList: tokenList
         )
     }
@@ -83,14 +59,14 @@ public extension SyntaxFactory.Simplified {
     static func makeSwitchCase(
         includeUnknownAttr: Bool = false,
         label: LabelSyntaxProtocol,
-        statements: [CodeBlockItemSyntax]
+        statements: [Syntax]
     ) -> SwitchCaseSyntax {
         SyntaxFactory.makeSwitchCase(
             unknownAttr: includeUnknownAttr ? makeAttribute(
                 attributeName: SyntaxFactory.makeIdentifier("unknown")
             ) : nil,
             label: label.typeErased,
-            statements: SyntaxFactory.makeCodeBlockItemList(statements)
+            statements: makeCodeBlockItemList(statements)
         )
     }
 }

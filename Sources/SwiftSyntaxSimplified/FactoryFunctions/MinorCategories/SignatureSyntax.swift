@@ -11,9 +11,9 @@ public extension SyntaxFactory.Simplified {
         items: [ClosureCaptureItemSyntax]
     ) -> ClosureCaptureSignatureSyntax {
         SyntaxFactory.makeClosureCaptureSignature(
-            leftSquare: SyntaxFactory.makeLeftSquareBracketToken(),
+            leftSquare: SimpleTokenSyntax.squareBracket(.left).token,
             items: makeClosureCaptureItemList(items),
-            rightSquare: SyntaxFactory.makeRightSquareBracketToken()
+            rightSquare: SimpleTokenSyntax.squareBracket(.right).token
         )
     }
 
@@ -29,10 +29,10 @@ public extension SyntaxFactory.Simplified {
                 makeClosureCaptureSignature(items: $0)
             },
             input: input.map { $0.typeErased },
-            asyncKeyword: includeAsyncKeyword ? SyntaxFactory.makeIdentifier("async") : nil,
-            throwsTok: includeThrowsTok ? SyntaxFactory.makeThrowsKeyword() : nil,
+            asyncKeyword: includeAsyncKeyword ? KeywordTokenSyntax.async.token : nil,
+            throwsTok: includeThrowsTok ? KeywordTokenSyntax.throws.token : nil,
             output: returnType.map { makeReturnClause(returnType: $0) },
-            inTok: SyntaxFactory.makeInKeyword()
+            inTok: KeywordTokenSyntax.in.token
         )
     }
 
@@ -44,7 +44,7 @@ public extension SyntaxFactory.Simplified {
     ) -> FunctionSignatureSyntax {
         SyntaxFactory.makeFunctionSignature(
             input: makeParameterClause(parameters: parameters),
-            asyncKeyword: includeAsyncKeyword ? SyntaxFactory.makeIdentifier("async") : nil,
+            asyncKeyword: includeAsyncKeyword ? KeywordTokenSyntax.async.token : nil,
             throwsOrRethrowsKeyword: throwsOrRethrowsKeyword?.token,
             output: returnType.map { makeReturnClause(returnType: $0) }
         )

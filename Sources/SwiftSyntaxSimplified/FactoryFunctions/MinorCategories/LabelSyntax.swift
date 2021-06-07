@@ -2,20 +2,20 @@ import SwiftSyntax
 
 public extension SyntaxFactory.Simplified {
 
-    public static func makeSwitchCaseLabel(
+    static func makeSwitchCaseLabel(
         caseItems: [CaseItemSyntax]
     ) -> SwitchCaseLabelSyntax {
         SyntaxFactory.makeSwitchCaseLabel(
-            caseKeyword: SyntaxFactory.makeCaseKeyword(),
+            caseKeyword: KeywordTokenSyntax.case.token,
             caseItems: makeCaseItemList(caseItems),
-            colon: SyntaxFactory.makeColonToken()
+            colon: SimpleTokenSyntax.colon.token
         )
     }
 
-    public static func makeSwitchDefaultLabel() -> SwitchDefaultLabelSyntax {
+    static func makeSwitchDefaultLabel() -> SwitchDefaultLabelSyntax {
         SyntaxFactory.makeSwitchDefaultLabel(
-            defaultKeyword: SyntaxFactory.makeDefaultKeyword(),
-            colon: SyntaxFactory.makeColonToken()
+            defaultKeyword: KeywordTokenSyntax.default.token,
+            colon: SimpleTokenSyntax.colon.token
         )
     }
 }

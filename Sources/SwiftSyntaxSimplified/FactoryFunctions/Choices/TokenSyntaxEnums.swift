@@ -6,8 +6,8 @@ public enum LetOrVarKeywordTokenSyntax {
 
     var token: TokenSyntax {
         switch self {
-        case .letKeyword: return SyntaxFactory.makeLetKeyword()
-        case .varKeyword: return SyntaxFactory.makeVarKeyword()
+        case .letKeyword: return KeywordTokenSyntax.let.token
+        case .varKeyword: return KeywordTokenSyntax.var.token
         }
     }
 }
@@ -18,8 +18,8 @@ public enum QuestionOrExclamationMarkTokenSyntax {
 
     var token: TokenSyntax {
         switch self {
-        case .questionMark: return SyntaxFactory.makePostfixQuestionMarkToken()
-        case .exclamationMark: return SyntaxFactory.makeExclamationMarkToken()
+        case .questionMark: return SimpleTokenSyntax.questionMark(.postfix).token
+        case .exclamationMark: return SimpleTokenSyntax.exclamationMark.token
         }
     }
 }
@@ -30,8 +30,8 @@ public enum TypeOrProtocolTokenSyntax {
 
     var token: TokenSyntax {
         switch self {
-        case .typeToken: return SyntaxFactory.makeTypeToken()
-        case .protocolToken: return SyntaxFactory.makeProtocolToken()
+        case .typeToken: return SimpleTokenSyntax.type.token
+        case .protocolToken: return SimpleTokenSyntax.protocol.token
         }
     }
 }
@@ -42,8 +42,8 @@ public enum ThrowsOrRethrowsKeywordTokenSyntax {
 
     var token: TokenSyntax {
         switch self {
-        case .throwsKeyword: return SyntaxFactory.makeThrowsKeyword()
-        case .rethrowsKeyword: return SyntaxFactory.makeRethrowsKeyword()
+        case .throwsKeyword: return KeywordTokenSyntax.throws.token
+        case .rethrowsKeyword: return KeywordTokenSyntax.rethrows.token
         }
     }
 }

@@ -8,7 +8,7 @@ public extension SyntaxFactory.Simplified {
     ) -> ConformanceRequirementSyntax {
         SyntaxFactory.makeConformanceRequirement(
             leftTypeIdentifier: leftTypeIdentifier,
-            colon: SyntaxFactory.makeColonToken(),
+            colon: SimpleTokenSyntax.colon.token,
             rightTypeIdentifier: rightTypeIdentifier
         )
     }
@@ -19,7 +19,7 @@ public extension SyntaxFactory.Simplified {
     ) -> SameTypeRequirementSyntax {
         SyntaxFactory.makeSameTypeRequirement(
             leftTypeIdentifier: leftTypeIdentifier,
-            equalityToken: SyntaxFactory.makeSpacedBinaryOperator("=="),
+            equalityToken: makeSpacedBinaryOperator("=="),
             rightTypeIdentifier: rightTypeIdentifier
         )
     }

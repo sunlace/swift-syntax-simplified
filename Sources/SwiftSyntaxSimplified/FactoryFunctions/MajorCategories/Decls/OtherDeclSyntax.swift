@@ -7,7 +7,7 @@ public extension SyntaxFactory.Simplified {
         modifier: DeclModifierSyntax? = nil,
         accessorKind: TokenSyntax,
         parameterName: TokenSyntax? = nil,
-        bodyStatements: [CodeBlockItemSyntax]?
+        bodyStatements: [Syntax]?
     ) -> AccessorDeclSyntax {
         SyntaxFactory.makeAccessorDecl(
             attributes: attributes.onlyIfNotEmpty.map {
@@ -30,9 +30,9 @@ public extension SyntaxFactory.Simplified {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            caseKeyword: SyntaxFactory.makeCaseKeyword(),
+            caseKeyword: KeywordTokenSyntax.case.token,
             elements: makeEnumCaseElementList(elements)
         )
     }
@@ -44,16 +44,16 @@ public extension SyntaxFactory.Simplified {
         genericParameters: [GenericParameterSyntax] = [],
         signature: FunctionSignatureSyntax,
         genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = [],
-        bodyStatements: [CodeBlockItemSyntax]? = nil
+        bodyStatements: [Syntax]?
     ) -> FunctionDeclSyntax {
         SyntaxFactory.makeFunctionDecl(
             attributes: attributes.onlyIfNotEmpty.map {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            funcKeyword: SyntaxFactory.makeFuncKeyword(),
+            funcKeyword: KeywordTokenSyntax.func.token,
             identifier: identifier,
             genericParameterClause: genericParameters.onlyIfNotEmpty.map {
                 makeGenericParameterClause(genericParameters: $0)
@@ -77,9 +77,9 @@ public extension SyntaxFactory.Simplified {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            importTok: SyntaxFactory.makeImportKeyword(),
+            importTok: KeywordTokenSyntax.import.token,
             importKind: importKind,
             path: makeAccessPath(pathComponentNames)
         )
@@ -93,17 +93,17 @@ public extension SyntaxFactory.Simplified {
         parameters: [FunctionParameterSyntax] = [],
         throwsOrRethrowsKeyword: ThrowsOrRethrowsKeywordTokenSyntax? = nil,
         genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = [],
-        bodyStatements: [CodeBlockItemSyntax]? = nil
+        bodyStatements: [Syntax]?
     ) -> InitializerDeclSyntax {
         SyntaxFactory.makeInitializerDecl(
             attributes: attributes.onlyIfNotEmpty.map {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            initKeyword: SyntaxFactory.makeInitKeyword(),
-            optionalMark: includeOptionalMark ? SyntaxFactory.makePostfixQuestionMarkToken() : nil,
+            initKeyword: KeywordTokenSyntax.`init`.token,
+            optionalMark: includeOptionalMark ? SimpleTokenSyntax.questionMark(.postfix).token : nil,
             genericParameterClause: genericParameters.onlyIfNotEmpty.map {
                 makeGenericParameterClause(genericParameters: $0)
             },
@@ -127,7 +127,7 @@ public extension SyntaxFactory.Simplified {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
             letOrVarKeyword: letOrVarKeyword.token,
             bindings: makePatternBindingList(bindings)

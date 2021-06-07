@@ -62,8 +62,8 @@ public enum DeclModifierSyntax {
         switch self {
 
         // Type Members
-        case .class: return SyntaxFactory.makeClassKeyword()
-        case .static: return SyntaxFactory.makeStaticKeyword()
+        case .class: return KeywordTokenSyntax.class.token
+        case .static: return KeywordTokenSyntax.static.token
 
         // Initializers
         case .convenience: return SyntaxFactory.makeIdentifier("convenience")
@@ -95,11 +95,11 @@ public enum DeclModifierSyntax {
         case .weak: return SyntaxFactory.makeIdentifier("weak")
 
         // Access Control
-        case .private: return SyntaxFactory.makePrivateKeyword()
-        case .fileprivate: return SyntaxFactory.makeFileprivateKeyword()
-        case .internal: return SyntaxFactory.makeInternalKeyword()
-        case .public: return SyntaxFactory.makePublicKeyword()
-        case .open: return SyntaxFactory.makeIdentifier("open")
+        case .private: return KeywordTokenSyntax.private.token
+        case .fileprivate: return  KeywordTokenSyntax.fileprivate.token
+        case .internal: return KeywordTokenSyntax.internal.token
+        case .public: return  KeywordTokenSyntax.public.token
+        case .open: return  KeywordTokenSyntax.open.token
 
         // Mutating Functions
         case .mutating: return SyntaxFactory.makeIdentifier("mutating")
@@ -139,9 +139,9 @@ public extension SyntaxFactory.Simplified {
 
         return SyntaxFactory.makeDeclModifier(
             name: declModifier.nameToken,
-            detailLeftParen: detailToken.map { _ in SyntaxFactory.makeLeftParenToken() },
+            detailLeftParen: detailToken.map { _ in SimpleTokenSyntax.paren(.left).token },
             detail: detailToken,
-            detailRightParen: detailToken.map { _ in SyntaxFactory.makeRightParenToken() }
+            detailRightParen: detailToken.map { _ in SimpleTokenSyntax.paren(.right).token }
         )
     }
 }

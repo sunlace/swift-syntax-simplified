@@ -8,9 +8,9 @@ public extension SyntaxFactory.Simplified {
         argumentTypes: [TypeSyntax]
     ) -> GenericArgumentClauseSyntax {
         SyntaxFactory.makeGenericArgumentClause(
-            leftAngleBracket: SyntaxFactory.makeLeftAngleToken(),
+            leftAngleBracket: SimpleTokenSyntax.angle(.left).token,
             arguments: makeGenericArgumentList(argumentTypes),
-            rightAngleBracket: SyntaxFactory.makeRightAngleToken()
+            rightAngleBracket: SimpleTokenSyntax.angle(.right).token
         )
     }
 
@@ -18,9 +18,9 @@ public extension SyntaxFactory.Simplified {
         genericParameters: [GenericParameterSyntax]
     ) -> GenericParameterClauseSyntax {
         SyntaxFactory.makeGenericParameterClause(
-            leftAngleBracket: SyntaxFactory.makeLeftAngleToken(),
+            leftAngleBracket: SimpleTokenSyntax.angle(.left).token,
             genericParameterList: makeGenericParameterList(genericParameters),
-            rightAngleBracket: SyntaxFactory.makeRightAngleToken()
+            rightAngleBracket: SimpleTokenSyntax.angle(.right).token
         )
     }
 
@@ -29,9 +29,9 @@ public extension SyntaxFactory.Simplified {
     ) -> ParameterClauseSyntax {
 
         SyntaxFactory.makeParameterClause(
-            leftParen: SyntaxFactory.makeLeftParenToken(),
+            leftParen: SimpleTokenSyntax.paren(.left).token,
             parameterList: makeFunctionParameterList(parameters),
-            rightParen: SyntaxFactory.makeRightParenToken()
+            rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
 
@@ -41,7 +41,7 @@ public extension SyntaxFactory.Simplified {
         value: ExprSyntax
     ) -> InitializerClauseSyntax {
         SyntaxFactory.makeInitializerClause(
-            equal: SyntaxFactory.makeEqualToken(),
+            equal: SimpleTokenSyntax.equal.token,
             value: value
         )
     }
@@ -50,7 +50,7 @@ public extension SyntaxFactory.Simplified {
         requirementBodies: [RequirementSyntaxProtocol]
     ) -> GenericWhereClauseSyntax {
         SyntaxFactory.makeGenericWhereClause(
-            whereKeyword: SyntaxFactory.makeWhereKeyword(),
+            whereKeyword: KeywordTokenSyntax.where.token,
             requirementList: makeGenericRequirementList(requirementBodies)
         )
     }
@@ -59,7 +59,7 @@ public extension SyntaxFactory.Simplified {
         returnType: TypeSyntax
     ) -> ReturnClauseSyntax {
         SyntaxFactory.makeReturnClause(
-            arrow: SyntaxFactory.makeArrowToken(),
+            arrow: SimpleTokenSyntax.arrow.token,
             returnType: returnType
         )
     }
@@ -68,7 +68,7 @@ public extension SyntaxFactory.Simplified {
         inheritedTypes: [TypeSyntax]
     ) -> TypeInheritanceClauseSyntax {
         SyntaxFactory.makeTypeInheritanceClause(
-            colon: SyntaxFactory.makeColonToken(),
+            colon: SimpleTokenSyntax.colon.token,
             inheritedTypeCollection: makeInheritedTypeList(inheritedTypes)
         )
     }
@@ -77,7 +77,7 @@ public extension SyntaxFactory.Simplified {
         guardResult: ExprSyntax
     ) -> WhereClauseSyntax {
         SyntaxFactory.makeWhereClause(
-            whereKeyword: SyntaxFactory.makeWhereKeyword(),
+            whereKeyword: KeywordTokenSyntax.where.token,
             guardResult: guardResult
         )
     }

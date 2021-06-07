@@ -16,9 +16,9 @@ public extension SyntaxFactory.Simplified {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            enumKeyword: SyntaxFactory.makeEnumKeyword(),
+            enumKeyword: KeywordTokenSyntax.enum.token,
             identifier: identifier,
             genericParameters: genericParameters.onlyIfNotEmpty.map {
                 makeGenericParameterClause(genericParameters: $0)
@@ -47,9 +47,9 @@ public extension SyntaxFactory.Simplified {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            classKeyword: SyntaxFactory.makeClassKeyword(),
+            classKeyword: KeywordTokenSyntax.class.token,
             identifier: identifier,
             genericParameterClause: genericParameters.onlyIfNotEmpty.map {
                 makeGenericParameterClause(genericParameters: $0)
@@ -78,9 +78,9 @@ public extension SyntaxFactory.Simplified {
                 makeAttributeList($0)
             },
             modifiers: modifiers.onlyIfNotEmpty.map {
-                SyntaxFactory.makeModifierList($0.map { makeDeclModifier($0) })
+                makeModifierList($0)
             },
-            structKeyword: SyntaxFactory.makeStructKeyword(),
+            structKeyword: KeywordTokenSyntax.struct.token,
             identifier: identifier,
             genericParameterClause: genericParameters.onlyIfNotEmpty.map {
                 makeGenericParameterClause(genericParameters: $0)

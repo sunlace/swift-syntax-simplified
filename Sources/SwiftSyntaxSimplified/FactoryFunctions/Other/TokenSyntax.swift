@@ -7,4 +7,10 @@ public extension SyntaxFactory.Simplified {
     ) -> TokenSyntax {
         SyntaxFactory.makeDollarIdentifier("$" + String(index))
     }
+
+    static func makeSpacedBinaryOperator(
+        _ text: String
+    ) -> TokenSyntax {
+        SyntaxFactory.makeSpacedBinaryOperator(text)
+    }
 }

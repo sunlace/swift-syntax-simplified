@@ -3,12 +3,12 @@ import SwiftSyntax
 public extension SyntaxFactory.Simplified {
 
     static func makeCodeBlock(
-        statements: [CodeBlockItemSyntax] = []
+        statements: [Syntax] = []
     ) -> CodeBlockSyntax {
         SyntaxFactory.makeCodeBlock(
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
-            statements: SyntaxFactory.makeCodeBlockItemList(statements),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
+            leftBrace: SimpleTokenSyntax.brace(.left).token,
+            statements: makeCodeBlockItemList(statements),
+            rightBrace: SimpleTokenSyntax.brace(.right).token
         )
     }
 
@@ -16,9 +16,9 @@ public extension SyntaxFactory.Simplified {
         accessors: [AccessorDeclSyntax]
     ) -> AccessorBlockSyntax {
         SyntaxFactory.makeAccessorBlock(
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
-            accessors: SyntaxFactory.makeAccessorList(accessors),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
+            leftBrace: SimpleTokenSyntax.brace(.left).token,
+            accessors: makeAccessorList(accessors),
+            rightBrace: SimpleTokenSyntax.brace(.right).token
         )
     }
 
@@ -26,9 +26,9 @@ public extension SyntaxFactory.Simplified {
         memberDecls: [DeclSyntax] = []
     ) -> MemberDeclBlockSyntax {
         SyntaxFactory.makeMemberDeclBlock(
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            leftBrace: SimpleTokenSyntax.brace(.left).token,
             members: makeMemberDeclList(memberDecls),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
+            rightBrace: SimpleTokenSyntax.brace(.right).token
         )
     }
 }

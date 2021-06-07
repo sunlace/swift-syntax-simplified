@@ -11,7 +11,18 @@ public extension SyntaxFactory.Simplified {
 
             return SyntaxFactory.makeArrayElement(
                 expression: $0.element,
-                trailingComma: skipTrailingComma ? nil : SyntaxFactory.makeCommaToken()
+                trailingComma: skipTrailingComma ? nil : SimpleTokenSyntax.comma.token
+            )
+        })
+    }
+
+    static func makeCaseItemList(
+        _ elements: [CaseItemSyntax]) -> CaseItemListSyntax {
+        SyntaxFactory.makeCaseItemList(elements.mapWithIsLast {
+            SyntaxFactory.makeCaseItem(
+                pattern: $0.element.pattern,
+                whereClause: $0.element.guardResult.map { makeWhereClause(guardResult: $0) },
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
     }
@@ -22,7 +33,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeClosureParamList(paramNames.mapWithIsLast {
             SyntaxFactory.makeClosureParam(
                 name: $0.element,
-                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
     }
@@ -33,7 +44,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeGenericArgumentList(argumentTypes.mapWithIsLast {
             SyntaxFactory.makeGenericArgument(
                 argumentType: $0.element,
-                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
     }
@@ -44,7 +55,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeGenericRequirementList(bodies.mapWithIsLast {
             SyntaxFactory.makeGenericRequirement(
                 body: $0.element.typeErased,
-                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
     }
@@ -55,7 +66,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeInheritedTypeList(typeNames.mapWithIsLast {
             SyntaxFactory.makeInheritedType(
                 typeName: $0.element,
-                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
     }
@@ -66,19 +77,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeTupleTypeElementList(elementTypes.mapWithIsLast {
             SyntaxFactory.makeTupleTypeElement(
                 type: $0.element,
-                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
-            )
-        })
-
-    }
-
-    static func makeCaseItemList(
-        _ elements: [CaseItemSyntax]) -> CaseItemListSyntax {
-        SyntaxFactory.makeCaseItemList(elements.mapWithIsLast {
-            SyntaxFactory.makeCaseItem(
-                pattern: $0.element.pattern,
-                whereClause: $0.element.guardResult.map { makeWhereClause(guardResult: $0) },
-                trailingComma: $0.isLast ? nil : SyntaxFactory.makeCommaToken()
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
     }

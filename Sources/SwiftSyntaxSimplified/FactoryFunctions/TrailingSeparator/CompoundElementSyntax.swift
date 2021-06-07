@@ -47,6 +47,11 @@ public struct TupleExprElementSyntax {
         expression: ExprSyntax
 }
 
+public struct TuplePatternElementSyntax {
+    let labelName: TokenSyntax?,
+        pattern: PatternSyntax
+}
+
 public extension SyntaxFactory.Simplified {
 
     static func makeCaseItemSyntax(
@@ -140,6 +145,16 @@ public extension SyntaxFactory.Simplified {
         TupleExprElementSyntax(
             label: label,
             expression: expression
+        )
+    }
+
+    static func makeTupleExprElement(
+        labelName: TokenSyntax? = nil,
+        pattern: PatternSyntax
+    ) -> TuplePatternElementSyntax {
+        TuplePatternElementSyntax(
+            labelName: labelName,
+            pattern: pattern
         )
     }
 }

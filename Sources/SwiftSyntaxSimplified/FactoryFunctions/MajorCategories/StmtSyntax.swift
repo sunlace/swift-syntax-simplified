@@ -6,7 +6,7 @@ public extension SyntaxFactory.Simplified {
         expression: ExprSyntax?
     ) -> ReturnStmtSyntax {
         SyntaxFactory.makeReturnStmt(
-            returnKeyword: SyntaxFactory.makeReturnKeyword(),
+            returnKeyword: KeywordTokenSyntax.return.token,
             expression: expression
         )
     }
@@ -18,12 +18,12 @@ public extension SyntaxFactory.Simplified {
     ) -> SwitchStmtSyntax {
         SyntaxFactory.makeSwitchStmt(
             labelName: labelName,
-            labelColon: labelName.map { _ in SyntaxFactory.makeColonToken() },
-            switchKeyword: SyntaxFactory.makeSwitchKeyword(),
+            labelColon: labelName.map { _ in SimpleTokenSyntax.colon.token },
+            switchKeyword: KeywordTokenSyntax.switch.token,
             expression: expression,
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            leftBrace: SimpleTokenSyntax.brace(.left).token,
             cases: makeSwitchCaseList(cases),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
+            rightBrace: SimpleTokenSyntax.brace(.right).token
         )
     }
 }

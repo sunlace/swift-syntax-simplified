@@ -6,9 +6,9 @@ public extension SyntaxFactory.Simplified {
         elements: [ExprSyntax] = []
     ) -> ArrayExprSyntax {
         SyntaxFactory.makeArrayExpr(
-            leftSquare: SyntaxFactory.makeLeftSquareBracketToken(),
+            leftSquare: SimpleTokenSyntax.squareBracket(.left).token,
             elements: makeArrayElementList(elements),
-            rightSquare: SyntaxFactory.makeRightSquareBracketToken()
+            rightSquare: SimpleTokenSyntax.squareBracket(.right).token
         )
     }
 
@@ -17,27 +17,27 @@ public extension SyntaxFactory.Simplified {
         typeName: TypeSyntax
     ) -> AsExprSyntax {
         SyntaxFactory.makeAsExpr(
-            asTok: SyntaxFactory.makeAsKeyword(),
+            asTok: KeywordTokenSyntax.as.token,
             questionOrExclamationMark: questionOrExclamationMark.map { $0.token },
             typeName: typeName
         )
     }
-    
+
     static func makeAssignmentExpr() -> AssignmentExprSyntax {
         SyntaxFactory.makeAssignmentExpr(
-            assignToken: SyntaxFactory.makeEqualToken()
+            assignToken: SimpleTokenSyntax.equal.token
         )
     }
 
     static func makeClosureExpr(
         signature: ClosureSignatureSyntax? = nil,
-        statements: [CodeBlockItemSyntax] = []
+        statements: [Syntax] = []
     ) -> ClosureExprSyntax {
         SyntaxFactory.makeClosureExpr(
-            leftBrace: SyntaxFactory.makeLeftBraceToken(),
+            leftBrace: SimpleTokenSyntax.brace(.left).token,
             signature: signature,
-            statements: SyntaxFactory.makeCodeBlockItemList(statements),
-            rightBrace: SyntaxFactory.makeRightBraceToken()
+            statements: makeCodeBlockItemList(statements),
+            rightBrace: SimpleTokenSyntax.brace(.right).token
         )
     }
 
@@ -51,12 +51,12 @@ public extension SyntaxFactory.Simplified {
 
         return SyntaxFactory.makeFunctionCallExpr(
             calledExpression: calledExpression,
-            leftParen: skipArgumentList ? nil : SyntaxFactory.makeLeftParenToken(),
+            leftParen: skipArgumentList ? nil : SimpleTokenSyntax.paren(.left).token,
             argumentList: makeTupleExprElementList(arguments),
-            rightParen: skipArgumentList ? nil : SyntaxFactory.makeRightParenToken(),
+            rightParen: skipArgumentList ? nil : SimpleTokenSyntax.paren(.right).token,
             trailingClosure: trailingClosure?.trailingClosure,
             additionalTrailingClosures: trailingClosure?.additionalTrailingClosures.onlyIfNotEmpty.map {
-                SyntaxFactory.makeMultipleTrailingClosureElementList($0)
+                makeMultipleTrailingClosureElementList($0)
             }
         )
     }
@@ -65,10 +65,10 @@ public extension SyntaxFactory.Simplified {
         elements: [DictionaryElementSyntax] = []
     ) -> DictionaryExprSyntax {
         SyntaxFactory.makeDictionaryExpr(
-            leftSquare: SyntaxFactory.makeLeftSquareBracketToken(),
+            leftSquare: SimpleTokenSyntax.squareBracket(.left).token,
             content: elements.onlyIfNotEmpty.map { makeDictionaryElementList($0) }?.typeErased
-                ?? SyntaxFactory.makeColonToken().typeErased,
-            rightSquare: SyntaxFactory.makeRightSquareBracketToken()
+                ?? SimpleTokenSyntax.colon.token.typeErased,
+            rightSquare: SimpleTokenSyntax.squareBracket(.right).token
         )
     }
 
@@ -79,7 +79,7 @@ public extension SyntaxFactory.Simplified {
     ) -> MemberAccessExprSyntax {
         SyntaxFactory.makeMemberAccessExpr(
             base: base,
-            dot: SyntaxFactory.makePeriodToken(),
+            dot: SimpleTokenSyntax.period.token,
             name: name,
             declNameArguments: declNameArguments
         )
@@ -89,7 +89,7 @@ public extension SyntaxFactory.Simplified {
         elements: [ExprSyntax]
     ) -> SequenceExprSyntax {
         SyntaxFactory.makeSequenceExpr(
-            elements: SyntaxFactory.makeExprList(elements)
+            elements: makeExprList(elements)
         )
     }
 
@@ -97,9 +97,9 @@ public extension SyntaxFactory.Simplified {
         elements: [TupleExprElementSyntax] = []
     ) -> TupleExprSyntax {
         SyntaxFactory.makeTupleExpr(
-            leftParen: SyntaxFactory.makeLeftParenToken(),
+            leftParen: SimpleTokenSyntax.paren(.left).token,
             elementList: makeTupleExprElementList(elements),
-            rightParen: SyntaxFactory.makeRightParenToken()
+            rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
 }
