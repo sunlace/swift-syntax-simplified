@@ -61,7 +61,8 @@ public extension SyntaxFactory.Simplified {
                 secondName: $0.element.name?.secondName,
                 colon: isColonNecessary ? SimpleTokenSyntax.colon.token : nil,
                 type: $0.element.type?.type,
-                ellipsis: $0.element.type?.ellipsis,
+                ellipsis: $0.element.type?.includeEllipsis ?? false
+                    ? SimpleTokenSyntax.ellipsis.token : nil,
                 defaultArgument: $0.element.defaultArgument,
                 trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
@@ -112,13 +113,30 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeTuplePatternElementList(
-        _ elements: [TuplePatternElementSyntax]
+        _ elements: [TuplePatternElementSyntax] = []
     ) -> TuplePatternElementListSyntax {
         SyntaxFactory.makeTuplePatternElementList(elements.mapWithIsLast {
             SyntaxFactory.makeTuplePatternElement(
                 labelName: $0.element.labelName,
                 labelColon: $0.element.labelName.map { _ in SimpleTokenSyntax.colon.token },
                 pattern: $0.element.pattern,
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
+            )
+        })
+    }
+
+    static func makeTupleTypeElementList(
+        _ elements: [TupleTypeElementSyntax] = []
+    ) -> TupleTypeElementListSyntax {
+        SyntaxFactory.makeTupleTypeElementList(elements.mapWithIsLast {
+            SyntaxFactory.makeTupleTypeElement(
+                inOut: $0.element.includeInOut ? KeywordTokenSyntax.inout.token : nil,
+                name: $0.element.name?.firstName,
+                secondName: $0.element.name?.secondName,
+                colon: $0.element.name.map { _ in SimpleTokenSyntax.colon.token },
+                type: $0.element.type,
+                ellipsis: $0.element.includeEllipsis ? SimpleTokenSyntax.ellipsis.token : nil,
+                initializer: $0.element.initializerValue.map { makeInitializerClause(value: $0) },
                 trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })

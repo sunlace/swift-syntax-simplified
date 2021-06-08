@@ -19,6 +19,7 @@ enum SimpleTokenSyntax {
 
     case comma
     case period
+    case ellipsis
     case exclamationMark
     case questionMark(Placement)
 
@@ -50,6 +51,7 @@ enum SimpleTokenSyntax {
 
         case .comma: return SyntaxFactory.makeCommaToken()
         case .period: return SyntaxFactory.makePeriodToken()
+        case .ellipsis: return SyntaxFactory.makeEllipsisToken()
         case .exclamationMark: return SyntaxFactory.makeExclamationMarkToken()
 
         case .questionMark(.infix): return SyntaxFactory.makeInfixQuestionMarkToken()

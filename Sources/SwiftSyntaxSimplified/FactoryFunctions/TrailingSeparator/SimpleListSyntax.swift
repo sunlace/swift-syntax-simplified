@@ -70,15 +70,4 @@ public extension SyntaxFactory.Simplified {
             )
         })
     }
-
-    static func makeTupleTypeElementList(
-        _ elementTypes: [TypeSyntax]
-    ) -> TupleTypeElementListSyntax {
-        SyntaxFactory.makeTupleTypeElementList(elementTypes.mapWithIsLast {
-            SyntaxFactory.makeTupleTypeElement(
-                type: $0.element,
-                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
-            )
-        })
-    }
 }

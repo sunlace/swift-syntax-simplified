@@ -7,7 +7,7 @@ public struct FunctionParameterNameGroupSyntax {
 
 public struct FunctionParameterTypeGroupSyntax {
     let type: TypeSyntax,
-        ellipsis: TokenSyntax?
+        includeEllipsis: Bool
 }
 
 public struct TrailingClosureGroupSyntax {
@@ -30,11 +30,11 @@ public extension SyntaxFactory.Simplified {
 
     static func makeFunctionParameterTypeGroup(
         type: TypeSyntax,
-        ellipsis: TokenSyntax? = nil
+        includeEllipsis: Bool = false
     ) -> FunctionParameterTypeGroupSyntax {
         FunctionParameterTypeGroupSyntax(
             type: type,
-            ellipsis: ellipsis
+            includeEllipsis: includeEllipsis
         )
     }
 

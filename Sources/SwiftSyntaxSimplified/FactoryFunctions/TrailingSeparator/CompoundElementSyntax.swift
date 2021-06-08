@@ -52,6 +52,14 @@ public struct TuplePatternElementSyntax {
         pattern: PatternSyntax
 }
 
+public struct TupleTypeElementSyntax {
+    let includeInOut: Bool,
+        name: FunctionParameterNameGroupSyntax?,
+        type: TypeSyntax,
+        includeEllipsis: Bool,
+        initializerValue: ExprSyntax?
+}
+
 public extension SyntaxFactory.Simplified {
 
     static func makeCaseItemSyntax(
@@ -155,6 +163,22 @@ public extension SyntaxFactory.Simplified {
         TuplePatternElementSyntax(
             labelName: labelName,
             pattern: pattern
+        )
+    }
+
+    static func makeTupleTypeElement(
+        includeInOut: Bool = false,
+        name: FunctionParameterNameGroupSyntax? = nil,
+        type: TypeSyntax,
+        includeEllipsis: Bool = false,
+        initializerValue: ExprSyntax?
+    ) -> TupleTypeElementSyntax {
+        TupleTypeElementSyntax(
+            includeInOut: includeInOut,
+            name: name,
+            type: type,
+            includeEllipsis: includeEllipsis,
+            initializerValue: initializerValue
         )
     }
 }

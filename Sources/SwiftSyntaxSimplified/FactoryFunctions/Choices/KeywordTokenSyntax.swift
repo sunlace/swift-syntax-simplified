@@ -8,6 +8,7 @@ enum KeywordTokenSyntax {
 
     case `async`
     case `static`
+    case `inout`
 
     case `let`
     case `var`
@@ -49,6 +50,7 @@ enum KeywordTokenSyntax {
 
         case .async: return SyntaxFactory.makeIdentifier("async")
         case .static: return SyntaxFactory.makeStaticKeyword()
+        case .inout: return SyntaxFactory.makeInoutKeyword()
 
         case .let: return SyntaxFactory.makeLetKeyword()
         case .var: return SyntaxFactory.makeVarKeyword()

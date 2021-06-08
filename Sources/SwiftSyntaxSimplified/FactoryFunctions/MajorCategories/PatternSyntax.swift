@@ -18,7 +18,7 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeTuplePattern(
-        elements: [TuplePatternElementSyntax]
+        elements: [TuplePatternElementSyntax] = []
     ) -> TuplePatternSyntax {
         SyntaxFactory.makeTuplePattern(
             leftParen: SimpleTokenSyntax.paren(.left).token,
