@@ -171,7 +171,7 @@ public extension SyntaxFactory.Simplified {
         name: FunctionParameterNameGroupSyntax? = nil,
         type: TypeSyntax,
         includeEllipsis: Bool = false,
-        initializerValue: ExprSyntax?
+        initializerValue: ExprSyntax? = nil
     ) -> TupleTypeElementSyntax {
         TupleTypeElementSyntax(
             includeInOut: includeInOut,
