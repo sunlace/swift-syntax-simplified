@@ -73,11 +73,11 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeTupleType(
-        elementTypes: [TupleTypeElementSyntax] = []
+        elements: [TupleTypeElementSyntax] = []
     ) -> TupleTypeSyntax {
         SyntaxFactory.makeTupleType(
             leftParen: SimpleTokenSyntax.paren(.left).token,
-            elements: makeTupleTypeElementList(elementTypes),
+            elements: makeTupleTypeElementList(elements),
             rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
