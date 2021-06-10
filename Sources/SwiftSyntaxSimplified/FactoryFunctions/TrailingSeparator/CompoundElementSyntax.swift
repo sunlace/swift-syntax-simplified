@@ -64,7 +64,7 @@ public extension SyntaxFactory.Simplified {
 
     static func makeCaseItem(
         pattern: PatternSyntax,
-        guardResult: ExprSyntax?
+        guardResult: ExprSyntax? = nil
     ) -> CaseItemSyntax {
         CaseItemSyntax(
             pattern: pattern,

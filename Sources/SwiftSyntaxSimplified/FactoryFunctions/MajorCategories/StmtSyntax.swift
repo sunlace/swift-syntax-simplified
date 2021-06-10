@@ -3,7 +3,7 @@ import SwiftSyntax
 public extension SyntaxFactory.Simplified {
 
     static func makeReturnStmt(
-        expression: ExprSyntax?
+        expression: ExprSyntax? = nil
     ) -> ReturnStmtSyntax {
         SyntaxFactory.makeReturnStmt(
             returnKeyword: KeywordTokenSyntax.return.token,
