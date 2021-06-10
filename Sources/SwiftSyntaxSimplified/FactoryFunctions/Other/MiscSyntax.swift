@@ -23,6 +23,16 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeDeclNameArguments(
+        argumentNames: [TokenSyntax]
+    ) -> DeclNameArgumentsSyntax {
+        SyntaxFactory.makeDeclNameArguments(
+            leftParen: SimpleTokenSyntax.paren(.left).token,
+            arguments: makeDeclNameArgumentList(argumentNames),
+            rightParen: SimpleTokenSyntax.paren(.right).token
+        )
+    }
+
     static func makeTypeAnnotation(
         type: TypeSyntax
     ) -> TypeAnnotationSyntax {

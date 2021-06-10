@@ -16,7 +16,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeSwitchCaseList(cases.map { $0.typeErased })
     }
 
-    // MARK: Semicolons
+    // MARK: Colons & Semicolons
 
     static func makeCodeBlockItemList(
         _ items: [Syntax], // TODO: Make protocol for allowed types
@@ -45,6 +45,17 @@ public extension SyntaxFactory.Simplified {
     }
 
     // MARK: Other
+
+    static func makeDeclNameArgumentList(
+        _ argumentNames: [TokenSyntax]
+    ) -> DeclNameArgumentListSyntax {
+        SyntaxFactory.makeDeclNameArgumentList(argumentNames.mapWithIsLast {
+            SyntaxFactory.makeDeclNameArgument(
+                name: $0.element,
+                colon: SimpleTokenSyntax.colon.token
+            )
+        })
+    }
 
     static func makeModifierList(
         _ modifiers: [DeclModifierSyntax]

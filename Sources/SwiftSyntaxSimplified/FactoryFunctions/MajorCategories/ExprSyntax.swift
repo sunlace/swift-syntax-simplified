@@ -72,16 +72,28 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeIdentifierExpr(
+        identifier: TokenSyntax,
+        declNameArgumentNames: [TokenSyntax] = []
+    ) -> IdentifierExprSyntax {
+        SyntaxFactory.makeIdentifierExpr(
+            identifier: identifier,
+            declNameArguments: declNameArgumentNames.onlyIfNotEmpty.map { makeDeclNameArguments(argumentNames: $0)
+            }
+        )
+    }
+
     static func makeMemberAccessExpr(
         base: ExprSyntax? = nil,
         name: TokenSyntax,
-        declNameArguments: DeclNameArgumentsSyntax? = nil
+        declNameArgumentNames: [TokenSyntax] = []
     ) -> MemberAccessExprSyntax {
         SyntaxFactory.makeMemberAccessExpr(
             base: base,
             dot: SimpleTokenSyntax.period.token,
             name: name,
-            declNameArguments: declNameArguments
+            declNameArguments: declNameArgumentNames.onlyIfNotEmpty.map { makeDeclNameArguments(argumentNames: $0)
+            }
         )
     }
 
