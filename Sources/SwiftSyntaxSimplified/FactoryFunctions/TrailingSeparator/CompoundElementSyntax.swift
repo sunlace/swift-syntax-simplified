@@ -62,7 +62,7 @@ public struct TupleTypeElementSyntax {
 
 public extension SyntaxFactory.Simplified {
 
-    static func makeCaseItemSyntax(
+    static func makeCaseItem(
         pattern: PatternSyntax,
         guardResult: ExprSyntax?
     ) -> CaseItemSyntax {
