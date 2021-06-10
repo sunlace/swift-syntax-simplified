@@ -156,7 +156,7 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
-    static func makeTupleExprElement(
+    static func makeTuplePatternElement(
         labelName: TokenSyntax? = nil,
         pattern: PatternSyntax
     ) -> TuplePatternElementSyntax {
