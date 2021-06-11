@@ -16,6 +16,14 @@ public extension SyntaxFactory.Simplified {
             }
         )
     }
+    
+    static func makeIdentifierPattern(
+        identifier: TokenSyntax
+    ) -> IdentifierPatternSyntax {
+        SyntaxFactory.makeIdentifierPattern(
+            identifier: identifier
+        )
+    }
 
     static func makeTuplePattern(
         elements: [TuplePatternElementSyntax] = []
