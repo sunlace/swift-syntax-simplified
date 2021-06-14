@@ -16,7 +16,7 @@ public extension SyntaxFactory.Simplified {
             }
         )
     }
-    
+
     static func makeIdentifierPattern(
         identifier: TokenSyntax
     ) -> IdentifierPatternSyntax {
@@ -32,6 +32,16 @@ public extension SyntaxFactory.Simplified {
             leftParen: SimpleTokenSyntax.paren(.left).token,
             elements: makeTuplePatternElementList(elements),
             rightParen: SimpleTokenSyntax.paren(.right).token
+        )
+    }
+
+    static func makeValueBindingPattern(
+        letOrVarKeyword: LetOrVarKeywordTokenSyntax,
+        valuePattern: PatternSyntax
+    ) -> ValueBindingPatternSyntax {
+        SyntaxFactory.makeValueBindingPattern(
+            letOrVarKeyword: letOrVarKeyword.token,
+            valuePattern: valuePattern
         )
     }
 }
