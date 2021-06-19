@@ -58,7 +58,7 @@ public enum DeclModifierSyntax {
     case mutating
     case nonmutating
 
-    var nameToken: TokenSyntax {
+    public var nameToken: TokenSyntax {
         switch self {
 
         // Type Members
@@ -107,7 +107,7 @@ public enum DeclModifierSyntax {
         }
     }
 
-    var detailToken: TokenSyntax? {
+    public var detailToken: TokenSyntax? {
         switch self {
         case .unowned(let detail):
             switch detail {
