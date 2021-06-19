@@ -11,7 +11,7 @@ public enum LetOrVarKeywordTokenSyntax: String {
         }
     }
 
-    init?(token: TokenSyntax) {
+    public init?(token: TokenSyntax) {
         self.init(rawValue: token.withoutTrivia().text)
     }
 }
