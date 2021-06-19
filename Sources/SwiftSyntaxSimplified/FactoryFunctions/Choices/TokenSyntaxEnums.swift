@@ -1,14 +1,18 @@
 import SwiftSyntax
 
-public enum LetOrVarKeywordTokenSyntax {
-    case letKeyword
-    case varKeyword
+public enum LetOrVarKeywordTokenSyntax: String {
+    case `let`
+    case `var`
 
     var token: TokenSyntax {
         switch self {
-        case .letKeyword: return KeywordTokenSyntax.let.token
-        case .varKeyword: return KeywordTokenSyntax.var.token
+        case .let: return KeywordTokenSyntax.let.token
+        case .var: return KeywordTokenSyntax.var.token
         }
+    }
+
+    init?(token: TokenSyntax) {
+        self.init(rawValue: token.withoutTrivia().text)
     }
 }
 
