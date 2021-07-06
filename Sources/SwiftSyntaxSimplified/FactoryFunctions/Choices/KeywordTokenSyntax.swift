@@ -35,6 +35,8 @@ enum KeywordTokenSyntax {
     case `if`
     case `while`
     case `switch`
+    case `guard`
+    case `else`
 
     case `open`
     case `public`
@@ -77,6 +79,8 @@ enum KeywordTokenSyntax {
         case .if: return SyntaxFactory.makeIfKeyword()
         case .while: return SyntaxFactory.makeWhileKeyword()
         case .switch: return SyntaxFactory.makeSwitchKeyword()
+        case .guard: return SyntaxFactory.makeGuardKeyword()
+        case .else: return SyntaxFactory.makeElseKeyword()
 
         case .open: return SyntaxFactory.makeIdentifier("open")
         case .public: return SyntaxFactory.makePublicKeyword()

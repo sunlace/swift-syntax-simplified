@@ -38,6 +38,17 @@ public extension SyntaxFactory.Simplified {
         })
     }
 
+    static func makeConditionElementList(
+        _ conditions: [Syntax]
+    ) -> ConditionElementListSyntax {
+        SyntaxFactory.makeConditionElementList(conditions.mapWithIsLast {
+            SyntaxFactory.makeConditionElement(
+                condition: $0.element,
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
+            )
+        })
+    }
+
     static func makeGenericArgumentList(
         _ argumentTypes: [TypeSyntax]
     ) -> GenericArgumentListSyntax {
