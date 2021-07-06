@@ -103,6 +103,16 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeBooleanLiteralExpr(
+        booleanLiteral: Bool
+    ) -> BooleanLiteralExprSyntax {
+        SyntaxFactory.makeBooleanLiteralExpr(
+            booleanLiteral: booleanLiteral
+                ? KeywordTokenSyntax.true.token
+                : KeywordTokenSyntax.false.token
+        )
+    }
+
     static func makeSequenceExpr(
         elements: [ExprSyntax]
     ) -> SequenceExprSyntax {

@@ -13,6 +13,9 @@ enum KeywordTokenSyntax {
     case `let`
     case `var`
 
+    case `true`
+    case `false`
+
     case `throws`
     case `rethrows`
 
@@ -57,6 +60,9 @@ enum KeywordTokenSyntax {
 
         case .let: return SyntaxFactory.makeLetKeyword()
         case .var: return SyntaxFactory.makeVarKeyword()
+
+        case .true: return SyntaxFactory.makeTrueKeyword()
+        case .false: return SyntaxFactory.makeFalseKeyword()
 
         case .throws: return SyntaxFactory.makeThrowsKeyword()
         case .rethrows: return SyntaxFactory.makeRethrowsKeyword()
