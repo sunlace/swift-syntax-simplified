@@ -21,6 +21,7 @@ enum KeywordTokenSyntax {
     case `func`
     case `case`
     case `default`
+    case `nil`
 
     case `as`
     case `is`
@@ -65,6 +66,7 @@ enum KeywordTokenSyntax {
         case .func: return SyntaxFactory.makeFuncKeyword()
         case .case: return SyntaxFactory.makeCaseKeyword()
         case .default: return SyntaxFactory.makeDefaultKeyword()
+        case .nil: return SyntaxFactory.makeNilKeyword()
 
         case .as: return SyntaxFactory.makeAsKeyword()
         case .is: return SyntaxFactory.makeIsKeyword()
