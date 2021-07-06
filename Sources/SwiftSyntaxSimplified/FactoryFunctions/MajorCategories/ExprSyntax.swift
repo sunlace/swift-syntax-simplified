@@ -97,6 +97,12 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeNilLiteralExpr() -> NilLiteralExprSyntax {
+        SyntaxFactory.makeNilLiteralExpr(
+            nilKeyword: KeywordTokenSyntax.nil.token
+        )
+    }
+
     static func makeSequenceExpr(
         elements: [ExprSyntax]
     ) -> SequenceExprSyntax {
