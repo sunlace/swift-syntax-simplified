@@ -18,7 +18,7 @@ public extension SyntaxFactory.Simplified {
         labelName: TokenSyntax? = nil,
         conditions: [Syntax],
         bodyStatements: [Syntax] = [],
-        elseBody: ElseBodySyntax? = nil
+        elseBody: ElseBodySyntaxProtocol? = nil
     ) -> IfStmtSyntax {
         SyntaxFactory.makeIfStmt(
             labelName: labelName,

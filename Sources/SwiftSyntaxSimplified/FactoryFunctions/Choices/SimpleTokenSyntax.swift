@@ -1,15 +1,21 @@
 import SwiftSyntax
 
-enum SimpleTokenSyntax {
+public enum SimpleTokenSyntax {
 
-    enum Side {
+    public enum Side {
         case left
         case right
     }
 
-    enum Placement {
+    public enum Placement {
         case infix
         case postfix
+    }
+
+    public enum Quote {
+        case single // TODO: What is this used for?
+        case string
+        case multilineString
     }
 
     case angle(Side)
@@ -21,7 +27,13 @@ enum SimpleTokenSyntax {
     case period
     case ellipsis
     case exclamationMark
+
+    case pound
+    case backslash
+    case backtick
+
     case questionMark(Placement)
+    case quote(Quote)
 
     case colon
     case semicolon
@@ -35,7 +47,7 @@ enum SimpleTokenSyntax {
 
     case eof
 
-    var token: TokenSyntax {
+    public var token: TokenSyntax {
         switch self {
         case .angle(.left): return SyntaxFactory.makeLeftAngleToken()
         case .angle(.right): return SyntaxFactory.makeRightAngleToken()
@@ -56,6 +68,14 @@ enum SimpleTokenSyntax {
 
         case .questionMark(.infix): return SyntaxFactory.makeInfixQuestionMarkToken()
         case .questionMark(.postfix): return SyntaxFactory.makePostfixQuestionMarkToken()
+
+        case .quote(.single): return SyntaxFactory.makeSingleQuoteToken()
+        case .quote(.string): return SyntaxFactory.makeStringQuoteToken()
+        case .quote(.multilineString): return SyntaxFactory.makeMultilineStringQuoteToken()
+
+        case .pound: return SyntaxFactory.makePoundToken()
+        case .backslash: return SyntaxFactory.makeBackslashToken()
+        case .backtick: return SyntaxFactory.makeBacktickToken()
 
         case .colon: return SyntaxFactory.makeColonToken()
         case .semicolon: return SyntaxFactory.makeSemicolonToken()

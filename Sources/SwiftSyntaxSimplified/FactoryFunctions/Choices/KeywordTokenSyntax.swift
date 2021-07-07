@@ -1,6 +1,6 @@
 import SwiftSyntax
 
-enum KeywordTokenSyntax {
+public enum KeywordTokenSyntax {
 
     case `class`
     case `struct`
@@ -48,7 +48,7 @@ enum KeywordTokenSyntax {
     case `fileprivate`
     case `private`
 
-    var token: TokenSyntax {
+    public var token: TokenSyntax {
         switch self {
         case .class: return SyntaxFactory.makeClassKeyword()
         case .struct: return SyntaxFactory.makeStructKeyword()
