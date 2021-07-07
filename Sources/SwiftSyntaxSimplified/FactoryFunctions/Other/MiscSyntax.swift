@@ -66,6 +66,14 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeStringSegment(
+        content: TokenSyntax
+    ) -> StringSegmentSyntax {
+        SyntaxFactory.makeStringSegment(
+            content: content
+        )
+    }
+
     static func makeSwitchCase(
         includeUnknownAttr: Bool = false,
         label: LabelSyntaxProtocol,
