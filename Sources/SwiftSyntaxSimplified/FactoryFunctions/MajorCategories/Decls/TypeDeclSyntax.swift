@@ -33,6 +33,33 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeExtensionDecl(
+        attributes: [AttributeSyntax] = [],
+        modifiers: [DeclModifierSyntax] = [],
+        extendedType: TypeSyntax,
+        inheritedTypes: [TypeSyntax] = [],
+        genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = [],
+        memberDecls: [DeclSyntax] = []
+    ) -> ExtensionDeclSyntax {
+        SyntaxFactory.makeExtensionDecl(
+            attributes: attributes.onlyIfNotEmpty.map {
+                makeAttributeList($0)
+            },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                makeModifierList($0)
+            },
+            extensionKeyword: KeywordTokenSyntax.extension.token,
+            extendedType: extendedType,
+            inheritanceClause: inheritedTypes.onlyIfNotEmpty.map {
+                makeTypeInheritanceClause(inheritedTypes: $0)
+            },
+            genericWhereClause: genericWhereClauseElementBodies.onlyIfNotEmpty.map {
+                makeGenericWhereClause(requirementBodies: $0)
+            },
+            members: makeMemberDeclBlock(memberDecls: memberDecls)
+        )
+    }
+
     static func makeClassDecl(
         attributes: [AttributeSyntax] = [],
         modifiers: [DeclModifierSyntax] = [],
