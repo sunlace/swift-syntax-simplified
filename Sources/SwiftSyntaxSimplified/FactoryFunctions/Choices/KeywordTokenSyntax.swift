@@ -5,6 +5,7 @@ public enum KeywordTokenSyntax {
     case `class`
     case `struct`
     case `enum`
+    case `extension`
 
     case `async`
     case `static`
@@ -53,6 +54,7 @@ public enum KeywordTokenSyntax {
         case .class: return SyntaxFactory.makeClassKeyword()
         case .struct: return SyntaxFactory.makeStructKeyword()
         case .enum: return SyntaxFactory.makeEnumKeyword()
+        case .extension: return SyntaxFactory.makeExtensionKeyword()
 
         case .async: return SyntaxFactory.makeIdentifier("async")
         case .static: return SyntaxFactory.makeStaticKeyword()
