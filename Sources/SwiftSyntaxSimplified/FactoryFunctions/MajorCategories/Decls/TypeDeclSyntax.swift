@@ -121,4 +121,31 @@ public extension SyntaxFactory.Simplified {
             members: makeMemberDeclBlock(memberDecls: memberDecls)
         )
     }
+
+    static func makeTypealiasDecl(
+        attributes: [AttributeSyntax] = [],
+        modifiers: [DeclModifierSyntax] = [],
+        identifier: TokenSyntax,
+        genericParameters: [GenericParameterSyntax] = [],
+        initializerValue: TypeSyntax? = nil,
+        genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = []
+    ) -> TypealiasDeclSyntax {
+        SyntaxFactory.makeTypealiasDecl(
+            attributes: attributes.onlyIfNotEmpty.map {
+                makeAttributeList($0)
+            },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                makeModifierList($0)
+            },
+            typealiasKeyword: KeywordTokenSyntax.typealias.token,
+            identifier: identifier,
+            genericParameterClause: genericParameters.onlyIfNotEmpty.map {
+                makeGenericParameterClause(genericParameters: $0)
+            },
+            initializer: initializerValue.map { makeTypeInitializerClause(value: $0) },
+            genericWhereClause: genericWhereClauseElementBodies.onlyIfNotEmpty.map {
+                makeGenericWhereClause(requirementBodies: $0)
+            }
+        )
+    }
 }

@@ -73,6 +73,15 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeTypeInitializerClause(
+        value: TypeSyntax
+    ) -> TypeInitializerClauseSyntax {
+        SyntaxFactory.makeTypeInitializerClause(
+            equal: SimpleTokenSyntax.equal.token,
+            value: value
+        )
+    }
+
     static func makeWhereClause(
         guardResult: ExprSyntax
     ) -> WhereClauseSyntax {
