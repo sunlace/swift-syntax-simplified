@@ -108,11 +108,40 @@ public extension SyntaxFactory.Simplified {
                 makeGenericParameterClause(genericParameters: $0)
             },
             parameters: makeParameterClause(parameters: parameters),
-            throwsOrRethrowsKeyword: throwsOrRethrowsKeyword.map { $0.token },
+            throwsOrRethrowsKeyword: throwsOrRethrowsKeyword?.token,
             genericWhereClause: genericWhereClauseElementBodies.onlyIfNotEmpty.map {
                 makeGenericWhereClause(requirementBodies: $0)
             },
             body: bodyStatements.map { makeCodeBlock(statements: $0) }
+        )
+    }
+
+    static func makeSubscriptDecl(
+        attributes: [AttributeSyntax] = [],
+        modifiers: [DeclModifierSyntax] = [],
+        genericParameters: [GenericParameterSyntax] = [],
+        indices: [FunctionParameterSyntax] = [],
+        resultType: TypeSyntax,
+        genericWhereClauseElementBodies: [RequirementSyntaxProtocol] = [],
+        accessor: AccessorSyntaxProtocol?
+    ) -> SubscriptDeclSyntax {
+        SyntaxFactory.makeSubscriptDecl(
+            attributes: attributes.onlyIfNotEmpty.map {
+                makeAttributeList($0)
+            },
+            modifiers: modifiers.onlyIfNotEmpty.map {
+                makeModifierList($0)
+            },
+            subscriptKeyword: KeywordTokenSyntax.subscript.token,
+            genericParameterClause: genericParameters.onlyIfNotEmpty.map {
+                makeGenericParameterClause(genericParameters: $0)
+            },
+            indices: makeParameterClause(parameters: indices),
+            result: makeReturnClause(returnType: resultType),
+            genericWhereClause: genericWhereClauseElementBodies.onlyIfNotEmpty.map {
+                makeGenericWhereClause(requirementBodies: $0)
+            },
+            accessor: accessor?.typeErased
         )
     }
 

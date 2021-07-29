@@ -25,6 +25,7 @@ public enum KeywordTokenSyntax {
     case `import`
     case `init`
     case `func`
+    case `subscript`
     case `case`
     case `default`
     case `nil`
@@ -76,6 +77,7 @@ public enum KeywordTokenSyntax {
         case .import: return SyntaxFactory.makeImportKeyword()
         case .`init`: return SyntaxFactory.makeInitKeyword()
         case .func: return SyntaxFactory.makeFuncKeyword()
+        case .subscript: return SyntaxFactory.makeSubscriptKeyword()
         case .case: return SyntaxFactory.makeCaseKeyword()
         case .default: return SyntaxFactory.makeDefaultKeyword()
         case .nil: return SyntaxFactory.makeNilKeyword()

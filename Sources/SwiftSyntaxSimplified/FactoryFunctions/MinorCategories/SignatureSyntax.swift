@@ -23,7 +23,7 @@ public extension SyntaxFactory.Simplified {
             capture: captureItems.onlyIfNotEmpty.map {
                 makeClosureCaptureSignature(items: $0)
             },
-            input: input.map { $0.typeErased },
+            input: input?.typeErased,
             asyncKeyword: includeAsyncKeyword ? KeywordTokenSyntax.async.token : nil,
             throwsTok: includeThrowsTok ? KeywordTokenSyntax.throws.token : nil,
             output: returnType.map { makeReturnClause(returnType: $0) },

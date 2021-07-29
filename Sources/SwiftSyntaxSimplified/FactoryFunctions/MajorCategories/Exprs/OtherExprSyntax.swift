@@ -18,7 +18,7 @@ public extension SyntaxFactory.Simplified {
     ) -> AsExprSyntax {
         SyntaxFactory.makeAsExpr(
             asTok: KeywordTokenSyntax.as.token,
-            questionOrExclamationMark: questionOrExclamationMark.map { $0.token },
+            questionOrExclamationMark: questionOrExclamationMark?.token,
             typeName: typeName
         )
     }
