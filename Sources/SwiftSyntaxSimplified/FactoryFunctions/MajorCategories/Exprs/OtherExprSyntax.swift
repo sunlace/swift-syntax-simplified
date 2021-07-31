@@ -111,6 +111,23 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeSubscriptExpr(
+        calledExpression: ExprSyntax,
+        arguments: [TupleExprElementSyntax] = [],
+        trailingClosure: TrailingClosureGroupSyntax? = nil
+    ) -> SubscriptExprSyntax {
+        SyntaxFactory.makeSubscriptExpr(
+            calledExpression: calledExpression,
+            leftBracket: SimpleTokenSyntax.squareBracket(.left).token,
+            argumentList: makeTupleExprElementList(arguments),
+            rightBracket: SimpleTokenSyntax.squareBracket(.right).token,
+            trailingClosure: trailingClosure?.trailingClosure,
+            additionalTrailingClosures: trailingClosure?.additionalTrailingClosures.onlyIfNotEmpty.map {
+                makeMultipleTrailingClosureElementList($0)
+            }
+        )
+    }
+
     static func makeTupleExpr(
         elements: [TupleExprElementSyntax] = []
     ) -> TupleExprSyntax {
