@@ -41,6 +41,12 @@ public extension SyntaxFactory.Simplified {
         )
     }
 
+    static func makeDiscardAssignmentExpr() -> DiscardAssignmentExprSyntax {
+        SyntaxFactory.makeDiscardAssignmentExpr(
+            wildcard: SimpleTokenSyntax.underscore.token
+        )
+    }
+
     static func makeFunctionCallExpr(
         calledExpression: ExprSyntax,
         arguments: [TupleExprElementSyntax] = [],

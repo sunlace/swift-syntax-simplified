@@ -44,6 +44,7 @@ public enum SimpleTokenSyntax {
 
     case type
     case `protocol`
+    case underscore
 
     case eof
 
@@ -86,6 +87,7 @@ public enum SimpleTokenSyntax {
 
         case .type: return SyntaxFactory.makeTypeToken()
         case .protocol: return SyntaxFactory.makeProtocolToken()
+        case .underscore: return SyntaxFactory.makeIdentifier("_")
 
         case .eof: return SyntaxFactory.makeToken(.eof, presence: .present)
         }
