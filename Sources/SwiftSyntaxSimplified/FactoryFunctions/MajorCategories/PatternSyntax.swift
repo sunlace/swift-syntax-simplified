@@ -46,7 +46,7 @@ public extension SyntaxFactory.Simplified {
     }
 }
 
-extension WildcardPatternSyntax {
+public extension WildcardPatternSyntax {
     init() {
         self = SyntaxFactory.makeWildcardPattern(
             wildcard: SimpleTokenSyntax.underscore.token,
