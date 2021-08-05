@@ -45,3 +45,12 @@ public extension SyntaxFactory.Simplified {
         )
     }
 }
+
+extension WildcardPatternSyntax {
+    init() {
+        self = SyntaxFactory.makeWildcardPattern(
+            wildcard: SimpleTokenSyntax.underscore.token,
+            typeAnnotation: nil
+        )
+    }
+}
