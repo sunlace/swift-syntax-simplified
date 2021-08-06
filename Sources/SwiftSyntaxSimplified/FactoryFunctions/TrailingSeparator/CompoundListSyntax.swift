@@ -111,20 +111,22 @@ public extension SyntaxFactory.Simplified {
             )
         })
     }
+}
 
-    static func makeTuplePatternElementList(
-        _ elements: [TuplePatternElementSyntax] = []
-    ) -> TuplePatternElementListSyntax {
-        SyntaxFactory.makeTuplePatternElementList(elements.mapWithIsLast {
-            SyntaxFactory.makeTuplePatternElement(
-                labelName: $0.element.labelName,
-                labelColon: $0.element.labelName.map { _ in SimpleTokenSyntax.colon.token },
-                pattern: $0.element.pattern,
-                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
-            )
+public extension TuplePatternElementListSyntax {
+    init(
+        @SyntaxListBuilder<TuplePatternElementSyntax>
+        buildElements: () -> [TuplePatternElementSyntax]
+    ) {
+        self = SyntaxFactory.makeTuplePatternElementList(buildElements().mapWithIsLast {
+            $0.element.rawValue
+                .withTrailingComma($0.isLast ? nil : SimpleTokenSyntax.comma.token)
         })
     }
+}
 
+public extension SyntaxFactory.Simplified {
+    
     static func makeTupleTypeElementList(
         _ elements: [TupleTypeElementSyntax] = []
     ) -> TupleTypeElementListSyntax {

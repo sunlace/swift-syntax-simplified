@@ -1,5 +1,62 @@
 import SwiftSyntax
 
+extension TokenSyntax {
+    static func identifier(_ text: String) -> Self {
+        return SyntaxFactory.makeIdentifier(text)
+    }
+}
+
+@resultBuilder struct SyntaxListBuilder<Element> { }
+
+extension SyntaxListBuilder {
+    static func buildBlock(_ components: Element...) -> [Element] {
+        return components
+    }
+    static func buildExpression(_ expression: Element) -> Element {
+        return expression
+    }
+}
+
+// MARK: Operators
+
+postfix operator *
+
+public postfix func *<T>(value: T) -> Anything<T> {
+    return Anything(wrapped: value)
+}
+
+public struct Anything<T> {
+
+    // MARK: Properties
+
+    fileprivate let wrapped: T
+
+    // MARK: Interface
+
+    public func apply<U>(_ transform: (T) -> U) -> U {
+        transform(wrapped)
+    }
+
+    public func run(_ codeBlock: (T) -> ()) -> T {
+        codeBlock(wrapped)
+        return wrapped
+    }
+
+    public func applyMutating(_ mutatingTransform: (inout T) -> Void) -> T {
+        var mutableWrapped = wrapped
+        mutatingTransform(&mutableWrapped)
+
+        return mutableWrapped
+    }
+
+    public func also(_ codeBlock: () -> ()) -> T {
+        codeBlock()
+        return wrapped
+    }
+}
+
+
+
 public struct CaseItemSyntax {
     let pattern: PatternSyntax,
         guardResult: ExprSyntax?
@@ -47,9 +104,47 @@ public struct TupleExprElementSyntax {
         expression: ExprSyntax
 }
 
+@dynamicMemberLookup
 public struct TuplePatternElementSyntax {
-    let labelName: TokenSyntax?,
-        pattern: PatternSyntax
+    internal var rawValue: SwiftSyntax.TuplePatternElementSyntax
+
+    init<Pattern: PatternSyntaxProtocol>(pattern: Pattern) {
+        self.rawValue = SyntaxFactory.makeTuplePatternElement(
+            labelName: nil,
+            labelColon: nil,
+            pattern: pattern.typeErased,
+            trailingComma: nil
+        )
+    }
+
+    subscript<Member>(dynamicMember dynamicMember: KeyPath<SwiftSyntax.TuplePatternElementSyntax, Member>) -> Member {
+        rawValue[keyPath: dynamicMember]
+    }
+
+    /// Returns a copy of the receiver with its `labelName` replaced.
+    /// - param newChild: The new `labelName` to replace the node's
+    ///                   current `labelName`, if present.
+    func withLabelName(
+        _ newChild: TokenSyntax?
+    ) -> TuplePatternElementSyntax {
+        self*.applyMutating {
+            $0.rawValue = $0.rawValue
+            .withLabelName(newChild)
+            .withLabelColon(newChild.map { _ in SimpleTokenSyntax.colon.token })
+        }
+    }
+
+
+    /// Returns a copy of the receiver with its `pattern` replaced.
+    /// - param newChild: The new `pattern` to replace the node's
+    ///                   current `pattern`, if present.
+    public func withPattern(
+        _ newChild: PatternSyntax?
+    ) -> TuplePatternElementSyntax {
+        self*.applyMutating {
+            $0.rawValue = $0.rawValue.withPattern(newChild)
+        }
+    }
 }
 
 public struct TupleTypeElementSyntax {
@@ -153,16 +248,6 @@ public extension SyntaxFactory.Simplified {
         TupleExprElementSyntax(
             label: label,
             expression: expression
-        )
-    }
-
-    static func makeTuplePatternElement(
-        labelName: TokenSyntax? = nil,
-        pattern: PatternSyntax
-    ) -> TuplePatternElementSyntax {
-        TuplePatternElementSyntax(
-            labelName: labelName,
-            pattern: pattern
         )
     }
 

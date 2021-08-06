@@ -1,47 +1,58 @@
 import SwiftSyntax
 
-public extension SyntaxFactory.Simplified {
-    
-    static func makeEnumCasePattern(
-        type: TypeSyntax? = nil,
-        caseName: TokenSyntax,
-        associatedTuplePatternElements: [TuplePatternElementSyntax] = []
-    ) -> EnumCasePatternSyntax {
-        SyntaxFactory.makeEnumCasePattern(
-            type: type,
+public extension EnumCasePatternSyntax {
+    init(
+        caseName: TokenSyntax
+    ) {
+        self = SyntaxFactory.makeEnumCasePattern(
+            type: nil,
             period: SimpleTokenSyntax.period.token,
             caseName: caseName,
-            associatedTuple: associatedTuplePatternElements.onlyIfNotEmpty.map {
-                makeTuplePattern(elements: $0)
-            }
+            associatedTuple: nil
         )
     }
 
-    static func makeIdentifierPattern(
+    func withAssociatedTuple(
+        @SyntaxListBuilder<TuplePatternElementSyntax>
+        buildAssociatedTuplePatternElements: () -> [TuplePatternElementSyntax]
+    ) -> EnumCasePatternSyntax {
+        withAssociatedTuple(
+            TuplePatternSyntax(buildElements: buildAssociatedTuplePatternElements)
+        )
+    }
+}
+
+public extension IdentifierPatternSyntax {
+    init(
         identifier: TokenSyntax
-    ) -> IdentifierPatternSyntax {
-        SyntaxFactory.makeIdentifierPattern(
+    ) {
+        self = SyntaxFactory.makeIdentifierPattern(
             identifier: identifier
         )
     }
+}
 
-    static func makeTuplePattern(
-        elements: [TuplePatternElementSyntax] = []
-    ) -> TuplePatternSyntax {
-        SyntaxFactory.makeTuplePattern(
+public extension TuplePatternSyntax {
+    init(
+        @SyntaxListBuilder<TuplePatternElementSyntax>
+        buildElements: () -> [TuplePatternElementSyntax]
+    ) {
+        self = SyntaxFactory.makeTuplePattern(
             leftParen: SimpleTokenSyntax.paren(.left).token,
-            elements: makeTuplePatternElementList(elements),
+            elements: TuplePatternElementListSyntax(buildElements: buildElements),
             rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
+}
 
-    static func makeValueBindingPattern(
+public extension ValueBindingPatternSyntax {
+    init<Pattern: PatternSyntaxProtocol>(
         letOrVarKeyword: LetOrVarKeywordTokenSyntax,
-        valuePattern: PatternSyntax
-    ) -> ValueBindingPatternSyntax {
-        SyntaxFactory.makeValueBindingPattern(
+        valuePattern: Pattern
+    ) {
+        self = SyntaxFactory.makeValueBindingPattern(
             letOrVarKeyword: letOrVarKeyword.token,
-            valuePattern: valuePattern
+            valuePattern: valuePattern.typeErased
         )
     }
 }
