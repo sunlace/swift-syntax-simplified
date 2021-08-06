@@ -1,6 +1,6 @@
 import SwiftSyntax
 
-extension TokenSyntax {
+public extension TokenSyntax {
     static func identifier(_ text: String) -> Self {
         return SyntaxFactory.makeIdentifier(text)
     }
