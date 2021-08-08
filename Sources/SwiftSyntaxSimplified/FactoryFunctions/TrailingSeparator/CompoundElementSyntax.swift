@@ -6,9 +6,7 @@ public extension TokenSyntax {
     }
 }
 
-@resultBuilder struct SyntaxListBuilder<Element> { }
-
-extension SyntaxListBuilder {
+@resultBuilder public struct SyntaxListBuilder<Element> {
     static func buildBlock(_ components: [Element]...) -> [Element] {
         return components.flatMap { $0 }
     }
