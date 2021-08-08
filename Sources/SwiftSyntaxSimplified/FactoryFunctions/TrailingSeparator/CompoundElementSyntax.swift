@@ -7,14 +7,14 @@ public extension TokenSyntax {
 }
 
 @resultBuilder public struct SyntaxListBuilder<Element> {
-    static func buildBlock(_ components: [Element]...) -> [Element] {
+    public static func buildBlock(_ components: [Element]...) -> [Element] {
         return components.flatMap { $0 }
     }
 
-    static func buildExpression(_ expression: Element) -> [Element] {
+    public static func buildExpression(_ expression: Element) -> [Element] {
         return [expression]
     }
-    static func buildExpression(_ expression: [Element]) -> [Element] {
+    public static func buildExpression(_ expression: [Element]) -> [Element] {
         return expression
     }
 }
