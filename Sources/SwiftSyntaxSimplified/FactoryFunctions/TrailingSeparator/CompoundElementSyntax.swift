@@ -9,10 +9,14 @@ public extension TokenSyntax {
 @resultBuilder struct SyntaxListBuilder<Element> { }
 
 extension SyntaxListBuilder {
-    static func buildBlock(_ components: Element...) -> [Element] {
-        return components
+    static func buildBlock(_ components: [Element]...) -> [Element] {
+        return components.flatMap { $0 }
     }
-    static func buildExpression(_ expression: Element) -> Element {
+
+    static func buildExpression(_ expression: Element) -> [Element] {
+        return [expression]
+    }
+    static func buildExpression(_ expression: [Element]) -> [Element] {
         return expression
     }
 }
@@ -106,9 +110,9 @@ public struct TupleExprElementSyntax {
 
 @dynamicMemberLookup
 public struct TuplePatternElementSyntax {
-    internal var rawValue: SwiftSyntax.TuplePatternElementSyntax
+    var rawValue: SwiftSyntax.TuplePatternElementSyntax
 
-    init<Pattern: PatternSyntaxProtocol>(pattern: Pattern) {
+    public init<Pattern: PatternSyntaxProtocol>(pattern: Pattern) {
         self.rawValue = SyntaxFactory.makeTuplePatternElement(
             labelName: nil,
             labelColon: nil,
@@ -117,14 +121,14 @@ public struct TuplePatternElementSyntax {
         )
     }
 
-    subscript<Member>(dynamicMember dynamicMember: KeyPath<SwiftSyntax.TuplePatternElementSyntax, Member>) -> Member {
+    public subscript<Member>(dynamicMember dynamicMember: KeyPath<SwiftSyntax.TuplePatternElementSyntax, Member>) -> Member {
         rawValue[keyPath: dynamicMember]
     }
 
     /// Returns a copy of the receiver with its `labelName` replaced.
     /// - param newChild: The new `labelName` to replace the node's
     ///                   current `labelName`, if present.
-    func withLabelName(
+    public func withLabelName(
         _ newChild: TokenSyntax?
     ) -> TuplePatternElementSyntax {
         self*.applyMutating {
