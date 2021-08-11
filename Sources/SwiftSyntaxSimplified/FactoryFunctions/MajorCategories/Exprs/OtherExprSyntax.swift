@@ -127,6 +127,21 @@ public extension SyntaxFactory.Simplified {
             }
         )
     }
+}
+
+public extension TernaryExprSyntax {
+    init(conditionExpression: ExprSyntax, firstChoice: ExprSyntax, secondChoice: ExprSyntax) {
+        self = SyntaxFactory.makeTernaryExpr(
+            conditionExpression: conditionExpression,
+            questionMark: SimpleTokenSyntax.questionMark(.infix).token,
+            firstChoice: firstChoice,
+            colonMark: SimpleTokenSyntax.colon.token,
+            secondChoice: secondChoice
+        )
+    }
+}
+
+public extension SyntaxFactory.Simplified {
 
     static func makeTupleExpr(
         elements: [TupleExprElementSyntax] = []
