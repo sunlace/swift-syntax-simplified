@@ -32,15 +32,19 @@ public extension SyntaxFactory.Simplified {
             rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
+}
 
-    static func makeTypeAnnotation(
-        type: TypeSyntax
-    ) -> TypeAnnotationSyntax {
-        SyntaxFactory.makeTypeAnnotation(
+public extension TypeAnnotationSyntax {
+
+    init(type: TypeSyntax) {
+        self = SyntaxFactory.makeTypeAnnotation(
             colon: SimpleTokenSyntax.colon.token,
             type: type
         )
     }
+}
+
+public extension SyntaxFactory.Simplified {
 
     static func makeSourceFile(
         statements: [Syntax] = []

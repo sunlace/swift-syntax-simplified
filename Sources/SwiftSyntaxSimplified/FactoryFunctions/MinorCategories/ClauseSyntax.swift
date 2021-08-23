@@ -34,17 +34,22 @@ public extension SyntaxFactory.Simplified {
             rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
+}
 
-    // MARK: Token Clauses
+// MARK: Token Clauses
 
-    static func makeInitializerClause(
+public extension InitializerClauseSyntax {
+    init(
         value: ExprSyntax
-    ) -> InitializerClauseSyntax {
-        SyntaxFactory.makeInitializerClause(
+    ) {
+        self = SyntaxFactory.makeInitializerClause(
             equal: SimpleTokenSyntax.equal.token,
             value: value
         )
     }
+}
+
+public extension SyntaxFactory.Simplified {
 
     static func makeGenericWhereClause(
         requirementBodies: [RequirementSyntaxProtocol]

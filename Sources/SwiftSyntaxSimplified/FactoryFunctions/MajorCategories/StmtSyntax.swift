@@ -3,7 +3,7 @@ import SwiftSyntax
 public extension SyntaxFactory.Simplified {
 
     static func makeGuardStmt(
-        conditions: [Syntax],
+        conditions: [ConditionSyntaxProtocol],
         bodyStatements: [Syntax]
     ) -> GuardStmtSyntax {
         SyntaxFactory.makeGuardStmt(
@@ -16,7 +16,7 @@ public extension SyntaxFactory.Simplified {
 
     static func makeIfStmt(
         labelName: TokenSyntax? = nil,
-        conditions: [Syntax],
+        conditions: [ConditionSyntaxProtocol],
         bodyStatements: [Syntax] = [],
         elseBody: ElseBodySyntaxProtocol? = nil
     ) -> IfStmtSyntax {
