@@ -39,11 +39,11 @@ public extension SyntaxFactory.Simplified {
     }
 
     static func makeConditionElementList(
-        _ conditions: [ConditionSyntaxProtocol]
+        _ conditions: [Syntax]
     ) -> ConditionElementListSyntax {
         SyntaxFactory.makeConditionElementList(conditions.mapWithIsLast {
             SyntaxFactory.makeConditionElement(
-                condition: $0.element.typeErased,
+                condition: $0.element,
                 trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })

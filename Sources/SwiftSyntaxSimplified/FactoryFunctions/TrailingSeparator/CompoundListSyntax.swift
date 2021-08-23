@@ -41,7 +41,7 @@ public extension SyntaxFactory.Simplified {
                 associatedValue: $0.element.associatedValues.onlyIfNotEmpty.map {
                     makeParameterClause(parameters: $0)
                 },
-                rawValue: $0.element.rawValue.map { InitializerClauseSyntax(value: $0) },
+                rawValue: $0.element.rawValue.map { makeInitializerClause(value: $0) },
                 trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
@@ -91,8 +91,8 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makePatternBindingList(elements.mapWithIsLast {
             SyntaxFactory.makePatternBinding(
                 pattern: $0.element.pattern,
-                typeAnnotation: $0.element.type.map { TypeAnnotationSyntax(type: $0) },
-                initializer: $0.element.initializerValue.map { InitializerClauseSyntax(value: $0) },
+                typeAnnotation: $0.element.type.map { makeTypeAnnotation(type: $0) },
+                initializer: $0.element.initializerValue.map { makeInitializerClause(value: $0) },
                 accessor: $0.element.accessor?.typeErased,
                 trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
@@ -138,7 +138,7 @@ public extension SyntaxFactory.Simplified {
                 colon: $0.element.name.map { _ in SimpleTokenSyntax.colon.token },
                 type: $0.element.type,
                 ellipsis: $0.element.includeEllipsis ? SimpleTokenSyntax.ellipsis.token : nil,
-                initializer: $0.element.initializerValue.map { InitializerClauseSyntax(value: $0) },
+                initializer: $0.element.initializerValue.map { makeInitializerClause(value: $0) },
                 trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
             )
         })
