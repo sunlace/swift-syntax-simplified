@@ -98,17 +98,17 @@ public extension SyntaxFactory.Simplified {
             )
         })
     }
-}
 
-public extension TupleExprElementListSyntax {
-
-    init(
-        @SyntaxListBuilder<TupleExprElementSyntax>
-        buildElements: () -> [TupleExprElementSyntax]
-    ) {
-        self = SyntaxFactory.makeTupleExprElementList(buildElements().mapWithIsLast {
-            $0.element
-                .withTrailingComma($0.isLast ? nil : SimpleTokenSyntax.comma.token)
+    static func makeTupleExprElementList(
+        _ elements: [TupleExprElementSyntax] = []
+    ) -> TupleExprElementListSyntax {
+        SyntaxFactory.makeTupleExprElementList(elements.mapWithIsLast {
+            SyntaxFactory.makeTupleExprElement(
+                label: $0.element.label,
+                colon: $0.element.label.map { _ in SimpleTokenSyntax.colon.token },
+                expression: $0.element.expression,
+                trailingComma: $0.isLast ? nil : SimpleTokenSyntax.comma.token
+            )
         })
     }
 }

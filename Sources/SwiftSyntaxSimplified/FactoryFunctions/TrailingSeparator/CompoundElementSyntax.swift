@@ -101,6 +101,11 @@ public struct PatternBindingSyntax {
         accessor: AccessorSyntaxProtocol?
 }
 
+public struct TupleExprElementSyntax {
+    let label: TokenSyntax?,
+        expression: ExprSyntax
+}
+
 @dynamicMemberLookup
 public struct TuplePatternElementSyntax {
     var rawValue: SwiftSyntax.TuplePatternElementSyntax
@@ -237,22 +242,16 @@ public extension SyntaxFactory.Simplified {
             accessor: accessor
         )
     }
-}
 
-public extension TupleExprElementSyntax {
-    init(
+    static func makeTupleExprElement(
+        label: TokenSyntax? = nil,
         expression: ExprSyntax
-    ) {
-        self = SyntaxFactory.makeTupleExprElement(
-            label: nil,
-            colon: SimpleTokenSyntax.colon.token,
-            expression: expression,
-            trailingComma: nil
+    ) -> TupleExprElementSyntax {
+        TupleExprElementSyntax(
+            label: label,
+            expression: expression
         )
     }
-}
-
-public extension SyntaxFactory.Simplified {
 
     static func makeTupleTypeElement(
         includeInOut: Bool = false,

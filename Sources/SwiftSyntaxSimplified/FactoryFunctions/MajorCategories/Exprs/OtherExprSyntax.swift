@@ -46,27 +46,26 @@ public extension SyntaxFactory.Simplified {
             wildcard: SimpleTokenSyntax.underscore.token
         )
     }
-}
 
-public extension FunctionCallExprSyntax {
-    init(
+    static func makeFunctionCallExpr(
         calledExpression: ExprSyntax,
-        @SyntaxListBuilder<TupleExprElementSyntax>
-        buildArguments: () -> [TupleExprElementSyntax]
-    ) {
+        arguments: [TupleExprElementSyntax] = [],
+        trailingClosure: TrailingClosureGroupSyntax? = nil
+    ) -> FunctionCallExprSyntax {
+        let skipArgumentList = arguments.isEmpty
+            && !(trailingClosure?.includeEmptyArgumentListParentheses ?? true)
 
-        self = SyntaxFactory.makeFunctionCallExpr(
+        return SyntaxFactory.makeFunctionCallExpr(
             calledExpression: calledExpression,
-            leftParen: SimpleTokenSyntax.paren(.left).token,
-            argumentList: TupleExprElementListSyntax(buildElements: buildArguments),
-            rightParen: SimpleTokenSyntax.paren(.right).token,
-            trailingClosure: nil,
-            additionalTrailingClosures: nil
+            leftParen: skipArgumentList ? nil : SimpleTokenSyntax.paren(.left).token,
+            argumentList: makeTupleExprElementList(arguments),
+            rightParen: skipArgumentList ? nil : SimpleTokenSyntax.paren(.right).token,
+            trailingClosure: trailingClosure?.trailingClosure,
+            additionalTrailingClosures: trailingClosure?.additionalTrailingClosures.onlyIfNotEmpty.map {
+                makeMultipleTrailingClosureElementList($0)
+            }
         )
     }
-}
-
-public extension SyntaxFactory.Simplified {
 
     static func makeDictionaryExpr(
         elements: [DictionaryElementSyntax] = []
@@ -120,7 +119,7 @@ public extension SyntaxFactory.Simplified {
         SyntaxFactory.makeSubscriptExpr(
             calledExpression: calledExpression,
             leftBracket: SimpleTokenSyntax.squareBracket(.left).token,
-            argumentList: TupleExprElementListSyntax { },
+            argumentList: makeTupleExprElementList(arguments),
             rightBracket: SimpleTokenSyntax.squareBracket(.right).token,
             trailingClosure: trailingClosure?.trailingClosure,
             additionalTrailingClosures: trailingClosure?.additionalTrailingClosures.onlyIfNotEmpty.map {
@@ -145,12 +144,11 @@ public extension TernaryExprSyntax {
 public extension SyntaxFactory.Simplified {
 
     static func makeTupleExpr(
-        @SyntaxListBuilder<TupleExprElementSyntax>
-        buildElements: () -> [TupleExprElementSyntax]
+        elements: [TupleExprElementSyntax] = []
     ) -> TupleExprSyntax {
         SyntaxFactory.makeTupleExpr(
             leftParen: SimpleTokenSyntax.paren(.left).token,
-            elementList: TupleExprElementListSyntax(buildElements: buildElements),
+            elementList: makeTupleExprElementList(elements),
             rightParen: SimpleTokenSyntax.paren(.right).token
         )
     }
